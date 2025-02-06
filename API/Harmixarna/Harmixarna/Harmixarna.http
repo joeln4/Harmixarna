@@ -1,0 +1,6 @@
+@Harmixarna_HostAddress = http://localhost:5129
+
+GET {{Harmixarna_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
