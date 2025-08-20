@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -20,7 +21,7 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.ToList().Select(c => c.ToCustomerDto());
 
             return Ok(customers);
         }
@@ -30,14 +31,12 @@ namespace api.Controllers
         {
             var customer = _context.Customers.Find(id);
 
-            if (customer is not null) // Kan skrivas "return customer is not null ? Ok(customer) : NotFound();"
-            {
-                return Ok(customer);
-            }
-            else
+            if (customer is null) // Kan skrivas "return customer is not null ? Ok(customer) : NotFound();"
             {
                 return NotFound();
             }
+
+            return Ok(customer.ToCustomerDto());
         }
     }
 }
