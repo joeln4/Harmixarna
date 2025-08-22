@@ -34,6 +34,16 @@ namespace api.Mappers
                 IsAdmin = createDto.IsAdmin
             };
         }
+
+        public static void UpdateFromDto(this Customer customer, UpdateCustomerDto updateDto)
+        {
+            {
+                customer.Name = updateDto.Name;
+                customer.Email = updateDto.Email;
+                customer.Phone = updateDto.Phone;
+                customer.Password = updateDto.Password;
+            };
+        }
     }
 }
 

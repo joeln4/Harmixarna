@@ -43,12 +43,30 @@ namespace api.Controllers
 
         [HttpPost]
 
-        public IActionResult Create([FromBody] CreateCustomerDto createDto)
+        public IActionResult Create(CreateCustomerDto createDto)
         {
             var customerModel = createDto.ToCustomerFromCreateDto();
             _context.Customers.Add(customerModel);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id = customerModel.Id }, customerModel.ToCustomerDto());
         }
+
+        [HttpPut("{id}")]
+        //[Route("{id})"]
+        public IActionResult Update(int id, UpdateCustomerDto updateDto)
+        {
+            var customer = _context.Customers.Find(id);
+
+            if (customer is null)
+            {
+                return NotFound();
+            }
+
+            customer.UpdateFromDto(updateDto);
+            _context.SaveChanges();
+
+            return Ok(customer.ToCustomerDto());
+        }
     }
+
 }
