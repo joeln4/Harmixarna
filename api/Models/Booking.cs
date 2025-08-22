@@ -10,7 +10,7 @@ namespace api.Models
     {
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
-        public BookingStatus Status { get; set; } = BookingStatus.Booked;
+        public BookingStatus Status { get; set; } = BookingStatus.Booked; // Behöver detta synas i frontend eller behövs den bara för intern logik?
         [ForeignKey("Customer")]
         public int? CustomerId { get; set; }
         public Customer? Customer { get; set; } //Navigation Property, Kolla upp det varför det används

@@ -10,15 +10,15 @@ namespace api.Mappers
 {
     public static class CustomerMappers
     {
-        public static CustomerDto ToCustomerDto(this Customer customerModel)
+        public static CustomerDto ToCustomerDto(this Customer customerEntity)
         {
             return new CustomerDto
             {
-                Id = customerModel.Id,
-                Name = customerModel.Name,
-                Email = customerModel.Email,
-                Phone = customerModel.Phone,
-                IsAdmin = customerModel.IsAdmin
+                Id = customerEntity.Id,
+                Name = customerEntity.Name,
+                Email = customerEntity.Email,
+                Phone = customerEntity.Phone,
+                IsAdmin = customerEntity.IsAdmin
 
             };
         }
@@ -35,13 +35,13 @@ namespace api.Mappers
             };
         }
 
-        public static void UpdateFromDto(this Customer customer, UpdateCustomerDto updateDto)
+        public static void UpdateFromDto(this Customer customerEntity, UpdateCustomerDto updateDto)
         {
             {
-                customer.Name = updateDto.Name;
-                customer.Email = updateDto.Email;
-                customer.Phone = updateDto.Phone;
-                customer.Password = updateDto.Password;
+                customerEntity.Name = updateDto.Name;
+                customerEntity.Email = updateDto.Email;
+                customerEntity.Phone = updateDto.Phone;
+                customerEntity.Password = updateDto.Password;
             };
         }
     }
