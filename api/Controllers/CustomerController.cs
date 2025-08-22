@@ -31,41 +31,56 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var customer = _context.Customers.Find(id);
+            var customerEntity = _context.Customers.Find(id);
 
-            if (customer is null) // Kan skrivas "return customer is not null ? Ok(customer) : NotFound();"
+            if (customerEntity is null) // Kan skrivas "return customer is not null ? Ok(customer) : NotFound();"
             {
                 return NotFound();
             }
 
-            return Ok(customer.ToCustomerDto());
+            return Ok(customerEntity.ToCustomerDto());
         }
 
         [HttpPost]
 
         public IActionResult Create(CreateCustomerDto createDto)
         {
-            var customerModel = createDto.ToCustomerFromCreateDto();
-            _context.Customers.Add(customerModel);
+            var customerEntity = createDto.ToCustomerFromCreateDto();
+            _context.Customers.Add(customerEntity);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetById), new { id = customerModel.Id }, customerModel.ToCustomerDto());
+            return CreatedAtAction(nameof(GetById), new { id = customerEntity.Id }, customerEntity.ToCustomerDto());
         }
 
         [HttpPut("{id}")]
-        //[Route("{id})"]
         public IActionResult Update(int id, UpdateCustomerDto updateDto)
         {
-            var customer = _context.Customers.Find(id);
+            var customerEntity = _context.Customers.Find(id);
 
-            if (customer is null)
+            if (customerEntity is null)
             {
                 return NotFound();
             }
 
-            customer.UpdateFromDto(updateDto);
+            customerEntity.UpdateFromDto(updateDto);
             _context.SaveChanges();
 
-            return Ok(customer.ToCustomerDto());
+            return Ok(customerEntity.ToCustomerDto());
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var customerEntity = _context.Customers.Find(id);
+
+            if (customerEntity is null)
+            {
+                return NotFound();
+            }
+
+            _context.Customers.Remove(customerEntity);
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 
