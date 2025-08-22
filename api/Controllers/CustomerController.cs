@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.Customer;
 using api.Mappers;
+using api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -37,6 +39,16 @@ namespace api.Controllers
             }
 
             return Ok(customer.ToCustomerDto());
+        }
+
+        [HttpPost]
+
+        public IActionResult Create([FromBody] CreateCustomerDto createDto)
+        {
+            var customerModel = createDto.ToCustomerFromCreateDto();
+            _context.Customers.Add(customerModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = customerModel.Id }, customerModel.ToCustomerDto());
         }
     }
 }

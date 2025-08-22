@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Customer;
 using api.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace api.Mappers
 {
@@ -19,6 +20,18 @@ namespace api.Mappers
                 Phone = customerModel.Phone,
                 IsAdmin = customerModel.IsAdmin
 
+            };
+        }
+
+        public static Customer ToCustomerFromCreateDto(this CreateCustomerDto createDto)
+        {
+            return new Customer
+            {
+                Name = createDto.Name,
+                Email = createDto.Email,
+                Phone = createDto.Phone,
+                Password = createDto.Password,
+                IsAdmin = createDto.IsAdmin
             };
         }
     }
