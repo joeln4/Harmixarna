@@ -9,7 +9,7 @@ namespace api.Models
     public class Booking
     {
         public int Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime AppointmentTime { get; set; }
         public BookingStatus Status { get; set; } = BookingStatus.Booked; // Behöver detta synas i frontend eller behövs den bara för intern logik?
         [ForeignKey("Customer")]
         public int? CustomerId { get; set; }

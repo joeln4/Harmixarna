@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Yessir : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,7 @@ namespace api.Migrations
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Duration = table.Column<int>(type: "int", nullable: false)
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,7 +50,7 @@ namespace api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AppointmentTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true)
                 },

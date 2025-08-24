@@ -45,11 +45,11 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -103,8 +103,8 @@ namespace api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 2)

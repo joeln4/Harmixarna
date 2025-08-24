@@ -10,13 +10,10 @@ namespace api.Models
     {
         public int Id { get; set; }
         public required string Type { get; set; }
-        [Precision (18,2)]
+        [Precision(18, 2)]
         public decimal Price { get; set; }
         public string? Description { get; set; }
-        public int Duration { get; set; } // Antal mintuer. Lägg till min efter när det visas, eller gör till string och ha med det direkt.
+        public TimeSpan Duration { get; set; } // Antal mintuer. Lägg till min efter när det visas, eller gör till string och ha med det direkt.
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-
-
-        
     }
 }

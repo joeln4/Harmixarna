@@ -14,7 +14,7 @@ namespace api.Mappers
             return new BookingDto
             {
                 Id = bookingEntity.Id,
-                DateTime = bookingEntity.DateTime
+                AppointmentTime = bookingEntity.AppointmentTime
             };
         }
     }

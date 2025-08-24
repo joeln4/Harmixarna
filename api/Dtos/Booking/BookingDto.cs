@@ -8,6 +8,6 @@ namespace api.Dtos.Booking
     public class BookingDto
     {
         public int Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime AppointmentTime { get; set; }
     }
 }
