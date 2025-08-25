@@ -1,0 +1,30 @@
+p {
+    margin: 0;
+}
+
+.treatmentCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 1px 1px 4px rgb(180, 180, 180);
+    border-radius: 10px;
+    padding: 6px 15px;
+    width: 800px;
+    margin: 1rem auto;
+
+}
+
+.title {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-add {
+    padding: 6px 6px;
+}
+
+
+.duration::after {
+    content: ", ";
+}
