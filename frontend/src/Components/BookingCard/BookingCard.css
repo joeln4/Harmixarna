@@ -1,0 +1,23 @@
+p {
+    margin: 0;
+    padding: 0;
+}
+
+
+.booking-card {
+    margin-top: 100px;
+    box-shadow: 1px 1px 4px rgb(180, 180, 180);
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+.bc-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
