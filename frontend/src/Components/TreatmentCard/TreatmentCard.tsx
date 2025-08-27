@@ -1,19 +1,12 @@
 import React from "react";
 import "./TreatmentCard.css";
-
-interface Treatment {
-  id: number;
-  type: string;
-  price: number;
-  description: string;
-  duration: string;
-};
+import {TreatmentInterface} from "../../types/Treatment.types";
 
 interface Props {
-  treatment: Treatment;
+  treatment: TreatmentInterface;
 }
 
-const TreatmentCard = ({ treatment }: Props) => {
+const TreatmentCard = ({treatment}: Props) => {
   return (
     <div className="treatment-card">
       <div className="tc-content">
