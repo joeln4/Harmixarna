@@ -1,30 +1,24 @@
 import React from "react";
+import {useState, useEffect} from "react";
 import TreatmentCard from "../TreatmentCard/TreatmentCard";
 import "./TreatmentCardList.css"
+import { TreatmentInterface } from "../../types/Treatment.types";
 
-type Props = {};
+const TreatmentCardList = () => {
+  const [treatments, setTreatments] = useState<TreatmentInterface[]>([])
+  const [error, setError] = useState<string | null>(null);
 
-const TreatmentCardList = (props: Props) => {
+  useEffect(() => {
+    fetch("http://localhost:5296/api/treatment")
+    .then(res => res.json())
+    .then(data => setTreatments(data))
+    .catch(error => setError(error.message))
+  }, [])
   return (
-    <div className="treatments">
-      <TreatmentCard
-        type="Klippning"
-        price={590}
-        duration={40}
-        description="Vi anpassar din frisyr efter önskemål och behov, oavsett om du vill behålla din stil eller förnya ditt utseende."
-      />
-      <TreatmentCard
-        type="Färgning"
-        price={300}
-        duration={30}
-        description="Färgning av hår"
-      />
-      <TreatmentCard
-        type="permanent"
-        price={1700}
-        duration={50}
-        description="Permanentlockning av hår"
-      />
+    <div className="treatment-card-list">
+      {error && <p><strong>Fel:</strong> {error}</p>}
+      {treatments.length > 0 ? treatments.map(t => (
+        <TreatmentCard key={t.id} treatment={t} />)) : <h1>Laddar...</h1>}
     </div>
   );
 };
