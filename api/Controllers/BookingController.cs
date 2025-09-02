@@ -55,7 +55,8 @@ namespace api.Controllers
 
             var booking = new Booking
             {
-                AppointmentTime = createDto.AppointmentTime,
+                StartUtc = createDto.StartUtc,
+                EndUtc = createDto.EndUtc,
                 Treatments = treatments
             };
 

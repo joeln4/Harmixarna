@@ -7,7 +7,8 @@ namespace api.Dtos.Booking
 {
     public class CreateBookingDto
     {
-        public DateTime AppointmentTime { get; set; }
+        public DateTime StartUtc { get; set; }
+        public DateTime EndUtc { get; set; }
 
         public List<int> TreatmentIds { get; set; } = new();
     }
