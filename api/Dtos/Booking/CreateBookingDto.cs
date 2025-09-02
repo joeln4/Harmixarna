@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Booking
 {
-    public class CreateBookingDto
+    public class CreateBookingDto //Skall ändras eller skapa en ny så att den tar in användarens val i frontend och backend sökter konverteringen till fälten.
     {
         public DateTime StartUtc { get; set; }
         public DateTime EndUtc { get; set; }
