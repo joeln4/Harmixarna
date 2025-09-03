@@ -4,9 +4,13 @@ import {TreatmentInterface} from "../../types/Treatment.types";
 
 interface Props {
   treatment: TreatmentInterface;
-}
+  selected: boolean;
+  onAdd: () => void;
+  onRemove: () => void;
+};
 
-const TreatmentCard = ({treatment}: Props) => {
+
+const TreatmentCard = ({treatment, selected, onAdd, onRemove}: Props) => {
   return (
     <div className="treatment-card">
       <div className="tc-content">
@@ -18,7 +22,9 @@ const TreatmentCard = ({treatment}: Props) => {
         <p className="tc-description">{treatment.description}</p>
       </div>
 
-      <button className="tc-btn-add">Lägg Till</button>
+      <button className="tc-btn-add" onClick={selected ? onRemove : onAdd}>
+        {selected ? "Ta bort" : "Lägg Till"}
+        </button>
     </div>
   );
 };
