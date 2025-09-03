@@ -44,6 +44,9 @@ const TreatmentCardList = () => {
         onAdd={() => add(t)}
         onRemove={() => remove(t.id)}
         />)) : <h1>Laddar...</h1>}
+        <div className="btn-next-container">
+          <button className="btn-next">Nästa</button>
+        </div> 
     </div>
   );
 };

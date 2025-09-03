@@ -20,6 +20,7 @@ p {
 
 .tc-btn-add {
   padding: 6px 6px;
+  margin-left: 10px;
 }
 
 .tc-duration::after {
