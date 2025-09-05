@@ -2,7 +2,7 @@ import React, { useMemo } from "react"
 import {useState} from "react"
 import Step2DateTime from "../Components/BookingSteps/Step2DateTime";
 import Step1Treatments from "../Components/BookingSteps/Step1Treatments";
-import "./BookingFlow.css"
+import "./Booking.css"
 import Step3CustomerInfo from "../Components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../types/Treatment.types";
 
