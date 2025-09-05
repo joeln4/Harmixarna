@@ -1,13 +1,13 @@
 import React, { useMemo } from "react"
 import {useState} from "react"
-import Step2DateTime from "../Components/BookingSteps/Step2DateTime";
-import Step1Treatments from "../Components/BookingSteps/Step1Treatments";
-import "./Booking.css"
-import Step3CustomerInfo from "../Components/BookingSteps/Step3CustomerInfo";
-import { TreatmentInterface } from "../types/Treatment.types";
+import Step2DateTime from "../../Components/BookingSteps/Step2DateTime";
+import Step1Treatments from "../../Components/BookingSteps/Step1Treatments";
+import "./BookingPage.css"
+import Step3CustomerInfo from "../../Components/BookingSteps/Step3CustomerInfo";
+import { TreatmentInterface } from "../../types/Treatment.types";
 
 
-function BookingFlow() {
+function BookingPage() {
   const [step, setStep] = useState<number>(0);
   const [selectedTreatments, setSelectedTreatments] = useState<TreatmentInterface[]>([])
 
@@ -73,4 +73,4 @@ function BookingFlow() {
   
 }
 
-export default BookingFlow
+export default BookingPage

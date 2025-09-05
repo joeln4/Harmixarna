@@ -1,13 +1,10 @@
 import "./App.css";
-import BookingCard from "./Components/BookingCard/BookingCard";
-import TreatmentCard from "./Components/TreatmentCard/TreatmentCard";
-import TreatmentCardList from "./Components/TreatmentCardList/TreatmentCardList";
-import Booking from "./Pages/Booking";
+import BookingPage from "./Pages/BookingPage/BookingPage";
 
 function App() {
   return (
     <div className="App">
-      <Booking />
+      <BookingPage />
     </div>
   );
 }
