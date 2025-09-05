@@ -1,0 +1,8 @@
+.btn-next-container {
+    display: flex;
+    justify-content: center;
+}
+.btn-next, .btn-prev {
+    padding: 8px 25px;
+    text-align: center;
+}
