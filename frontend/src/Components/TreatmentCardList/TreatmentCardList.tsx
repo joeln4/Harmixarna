@@ -1,6 +1,6 @@
 import React from "react";
 import TreatmentCard from "../TreatmentCard/TreatmentCard";
-import "./TreatmentCardList.css"
+import "./TreatmentCardList.css";
 import { TreatmentInterface } from "../../types/Treatment.types";
 
 interface Props {
