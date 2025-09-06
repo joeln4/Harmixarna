@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import { TreatmentInterface } from '../../types/Treatment.types'
 import {useState} from "react"
 import TreatmentCardList from '../TreatmentCardList/TreatmentCardList';
-import "./StepButtons.css";
+import "./Steps.css";
 
 type Props = {
     selectedIds: Set<string | number>;
@@ -26,7 +26,7 @@ const Step1Treatments = ({selectedIds, onAdd, onRemove, onNext}: Props) => {
   }, []);
 
   return (
-    <div className="s1">
+    <div className="step-content">
       <h1>Välj behandlingar</h1>
       <TreatmentCardList
         treatments={treatments}

@@ -1,4 +1,5 @@
 import React from 'react'
+import "./Steps.css";
 
 type Props = {
   onNext: () => void;
@@ -7,7 +8,7 @@ type Props = {
 
 const BookingDateTime = ({onNext, onPrev} : Props) => {
   return (
-    <div className="s2">
+    <div className="step-content">
       <h1>Välj datum och tid</h1>
       <button className="btn-prev" onClick={onPrev}>Tillbaka</button>
       <button className="btn-next" onClick={onNext}>Nästa</button>

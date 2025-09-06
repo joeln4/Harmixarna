@@ -23,8 +23,8 @@ const TreatmentCard = ({treatment, selected, onAdd, onRemove}: Props) => {
       </div>
       
       <div className="tc-btn-cont">
-        <span>{selected ? "Tillagd" : ""}</span>
-        <button className="tc-btn-add" onClick={selected ? onRemove : onAdd}>
+        <span className="selected-text">{selected ? "Tillagd" : ""}</span>
+        <button className={selected ? "tc-btn-remove" : "tc-btn-add"} onClick={selected ? onRemove : onAdd}>
           {selected ? "Ta bort" : "Lägg Till"}
         </button>
       </div>

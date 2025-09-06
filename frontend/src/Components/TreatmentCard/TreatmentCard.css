@@ -18,9 +18,26 @@ p {
   letter-spacing: 0.5px;
 }
 
+.tc-btn-add, .tc-btn-remove {
+  min-width: 74px;
+  padding: 8px 10px;
+  border-style: none;
+  border-radius: 20px;
+  color: white;
+}
+
 .tc-btn-add {
-  padding: 6px 6px;
+  background-color: rgb(70, 70, 245);
+}
+.tc-btn-remove {
   margin-left: 10px;
+  background-color: rgb(221, 53, 53);
+}
+
+.selected-text {
+  color: rgb(13, 150, 13);
+  
+  
 }
 
 .tc-duration::after {

@@ -1,3 +1,7 @@
+.step-content {
+  width: 800px;
+}
+
 .btn-next-container {
     display: flex;
     justify-content: center;
