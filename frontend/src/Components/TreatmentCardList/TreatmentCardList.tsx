@@ -4,26 +4,32 @@ import "./TreatmentCardList.css"
 import { TreatmentInterface } from "../../types/Treatment.types";
 
 interface Props {
-  treatments: TreatmentInterface[];
-  selectedIds: Set<string | number>;
-  onAdd: (t: TreatmentInterface) => void;
-  onRemove: (id: string | number) => void; //varför string | number? gjorde inte det i TreatmentCard
-  error?: string | null; //varför "?"
-  loading: boolean;
+  treatments: TreatmentInterface[];           // Lista av behandlingar att visa, skickas från föräldern Step1Treatments.
+  selectedIds: Set<string | number>;          // Id:n för de behandlingar som är valda
+  onAdd: (t: TreatmentInterface) => void;     // Callback när en behandling läggs till i temporär lista
+  onRemove: (id: string | number) => void;    // Callback när en behandling tas bort från temporär lista
+  error?: string | null;                      // returnerar felmeddelande om något gått snett eller null
+  loading: boolean;                           // Om listan laddar data just nu
 };
 
+/**
+ * TreatmentCardList – Visar en lista med behandlingar.
+ * Hanterar också loading-state, felmeddelanden och tom lista.
+ */
 const TreatmentCardList = ({treatments, selectedIds, onAdd, onRemove, error, loading } : Props) => {
-  
-
   return (
     <div className="treatment-card-list">
+
+      {/* Felmeddelande om API/data hämtning misslyckades */}
       {error && <p><strong>Fel:</strong> {error}</p>}
+      
+      {/* Laddningsindikator och kontroll om listan är tom, annars visa behandlingarna  */}
       {loading ? <h1>Laddar...</h1> : (
         treatments.length > 0 ? treatments.map(t => (
         <TreatmentCard 
         key={t.id} 
         treatment={t} 
-        selected={selectedIds.has(t.id)}
+        selected={selectedIds.has(t.id)} // Markerar om just denna behandling är vald
         onAdd={() => onAdd(t)}
         onRemove={() => onRemove(t.id)}
         />)) : <p>Inga behandlingar hittades</p>) }

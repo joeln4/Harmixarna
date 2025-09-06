@@ -4,12 +4,15 @@ import {TreatmentInterface} from "../../types/Treatment.types";
 
 interface Props {
   treatment: TreatmentInterface;
-  selected: boolean;
-  onAdd: () => void;
-  onRemove: () => void;
+  selected: boolean;                // Om behandlingen är vald eller inte
+  onAdd: () => void;                // Callback för att lägga till behandling i temporär lista
+  onRemove: () => void;             // Callback för att ta bort behandling i temporär lista
 };
 
-
+/**
+ * TreatmentCard – Visar information om en behandling
+ * och låter användaren lägga till eller ta bort den.
+ */
 const TreatmentCard = ({treatment, selected, onAdd, onRemove}: Props) => {
   return (
     <div className="treatment-card">

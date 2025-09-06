@@ -5,18 +5,24 @@ import TreatmentCardList from '../TreatmentCardList/TreatmentCardList';
 import "./Steps.css";
 
 type Props = {
-    selectedIds: Set<string | number>;
-    onAdd: (t: TreatmentInterface) => void;
-    onRemove: (id: string | number) => void;
-    onNext: () => void;
+    selectedIds: Set<string | number>;          // Id:n för valda behandlingar i den temporära listan
+    onAdd: (t: TreatmentInterface) => void;     // Callback för att lägga till en behandling i temporär lista
+    onRemove: (id: string | number) => void;    // Callback för att ta bort en behandling ur temporär lista
+    onNext: () => void;                         // Går vidare till nästa steg i bokningsflödet
 }
 
+/**
+ * Step1Treatments – Första steget i bokningsflödet.
+ * Hämtar alla behandlingar från API:t och visar dem i en lista, 
+ * med hjälp av TreatmentCardList och TreatmentCard.
+ * Användaren kan välja behandlingar och gå vidare.
+ */
 const Step1Treatments = ({selectedIds, onAdd, onRemove, onNext}: Props) => {
-  const [treatments, setTreatments] = useState<TreatmentInterface[]>([])
+  const [treatments, setTreatments] = useState<TreatmentInterface[]>([]) // Listan med hämtade behandlingar från API:t
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-
+  // Hämta behandlingar från API vid första render
   useEffect(() => {
     fetch("http://localhost:5296/api/treatment")
     .then(res => res.json())

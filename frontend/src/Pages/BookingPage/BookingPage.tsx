@@ -7,70 +7,90 @@ import Step3CustomerInfo from "../../Components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types/Treatment.types";
 
 
-function BookingPage() {
-  const [step, setStep] = useState<number>(0);
-  const [selectedTreatments, setSelectedTreatments] = useState<TreatmentInterface[]>([])
+/**
+ * BookingPage – Huvudsidan för bokningsflödet.
+ * Hanterar de tre stegen:
+ *  1. Välj behandlingar
+ *  2. Välj datum/tid
+ *  3. Kundinformation
+ * 
+ * Ansvarar för state (den temporära listan av valda behandlingar + aktuellt steg i bokningsflödet),
+ * och skickar vidare props till respektive stegkomponent.
+ */
 
+function BookingPage() {
+  // Håller koll på vilket steg användaren befinner sig i (0, 1, 2)
+  const [step, setStep] = useState<number>(0);
+
+  // Alla behandlingar som användaren har valt (den temporära listan)
+  const [selectedTreatments, setSelectedTreatments] = useState<TreatmentInterface[]>([]);
+
+  // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
+  // useMemo: skapa Set av valda id:n bara när selectedTreatments ändras,
+  // för att inte ska ny Set vid varje rendering
   const selectedIds = useMemo(
     () => new Set(selectedTreatments.map(t => t.id)),
     [selectedTreatments]
   );
 
+  // Lägg till behandling om den inte redan är vald
   const addTreatment = (t: TreatmentInterface) => {
     if(!selectedIds.has(t.id)){
       setSelectedTreatments(prev => [...prev, t]);
-    }
+    };
   };
 
+  // Ta bort behandling baserat på id
   const removeTreatment = (id: string | number) => {
     setSelectedTreatments(prev => prev.filter(t => t.id !== id));
   };
 
+  // Gå vidare till nästa steg (endast om man är på steg 0 eller 1)
   const nextStep = () => {
     if(step === 0 || step === 1){
       setStep(step + 1)
-    }
-  }
+    };
+  };
 
+  // Gå tillbaka till föregående steg (endast om man är på steg 1 eller 2)
   const prevStep = () => {
     if(step === 1 || step === 2) {
       setStep(step - 1)
-    }
-  }
+    };
+  };
 
-    if(step === 0){
-        return (
-        <div className="bf-container">
-            <Step1Treatments
-              selectedIds={selectedIds}
-              onAdd={addTreatment}
-              onRemove={removeTreatment}
-              onNext={nextStep}
-            />
-        </div>
-        )
-     
-    }
-
-    if(step === 1){
-        return(
-            <div className="bf-container">
-              <Step2DateTime
-                onNext={nextStep}
-                onPrev={prevStep}
-              />
-            </div>
-        )
-    }
-
+  // Rendera olika steg baserat på "step"-state (alltså 0, 1 eller 2)
+  if(step === 0){
     return (
       <div className="bf-container">
-        <Step3CustomerInfo
-          onPrev={prevStep}
+        <Step1Treatments
+          selectedIds={selectedIds}
+          onAdd={addTreatment}
+          onRemove={removeTreatment}
+          onNext={nextStep}
         />
       </div>
-    )
-  
-}
+    );  
+  };
+
+  if(step === 1){
+    return(
+      <div className="bf-container">
+          <Step2DateTime
+            onNext={nextStep}
+            onPrev={prevStep}
+          />
+      </div>
+    );
+  };
+
+  return (
+    <div className="bf-container">
+      <Step3CustomerInfo
+        onPrev={prevStep}
+      />
+    </div>
+  );  
+};
 
 export default BookingPage
