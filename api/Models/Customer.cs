@@ -12,7 +12,7 @@ namespace api.Models
         public required string Email { get; set; }
         public string? Phone { get; set; }
         public string? Password { get; set; } // Null till en början. Skapas med identity?
-        public bool IsAdmin { get; set; } = false;
+        public bool? IsAdmin { get; set; } = false;
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }
