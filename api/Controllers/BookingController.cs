@@ -46,7 +46,7 @@ namespace api.Controllers
         [HttpPost]
         public IActionResult Create(CreateBookingDto createDto)
         {
-            var treatments = _context.Treatments.Where(t => createDto.TreatmentIds.Contains(t.Id)).ToList();
+            var treatments = _context.Treatments.Where(t => createDto.Treatments.Contains(t.Id)).ToList();
 
             if (treatments.Count() == 0)
             {
@@ -55,8 +55,8 @@ namespace api.Controllers
 
             var booking = new Booking
             {
-                StartUtc = createDto.StartUtc,
-                EndUtc = createDto.EndUtc,
+                // StartUtc = createDto.StartUtc,
+                // EndUtc = createDto.EndUtc,
                 Treatments = treatments
             };
 

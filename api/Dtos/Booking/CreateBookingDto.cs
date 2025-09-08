@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.Customer;
 
 namespace api.Dtos.Booking
 {
-    public class CreateBookingDto //Skall ändras eller skapa en ny så att den tar in användarens val i frontend och backend sökter konverteringen till fälten.
-    {
-        public DateTime StartUtc { get; set; }
-        public DateTime EndUtc { get; set; }
-
-        public List<int> TreatmentIds { get; set; } = new();
-    }
-}
+  public class CreateBookingDto //tar in användarens val i frontend och backend sökter konverteringen av datatyperna för fälten.
+  {
+    public string Date { get; set; } = default!; // är datumet som väljs i kalendern i frontend. Är string för att frontend inte ska ansvara för konverteringen.
+    public string StartTime { get; set; } = default!; // är tiden som väljs i frontend. String, samma förklaring som ovan.
+    public List<int> Treatments { get; set; } = new();
+    public string? Message { get; set; }
+    public CustomerInfoDto Customer { get; set; } = default!; // Tar med det som behövs från kunden.
+    };
+};
