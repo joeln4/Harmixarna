@@ -25,6 +25,9 @@ function BookingPage() {
   // Alla behandlingar som användaren har valt (den temporära listan)
   const [selectedTreatments, setSelectedTreatments] = useState<TreatmentInterface[]>([]);
 
+  // Datumet som väljs i kalendern
+  const [date, setDate] = useState<Date>(new Date());
+
   // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
   // useMemo: skapa Set av valda id:n bara när selectedTreatments ändras,
   // för att inte ska ny Set vid varje rendering
@@ -59,6 +62,12 @@ function BookingPage() {
     };
   };
 
+  const handleDateChange = (value: Date) => {
+    console.log("Valt värde:", value.toISOString().slice(0, 10));
+    setDate(value);
+  }
+
+
   // Rendera olika steg baserat på "step"-state (alltså 0, 1 eller 2)
   if(step === 0){
     return (
@@ -79,6 +88,8 @@ function BookingPage() {
           <Step2DateTime
             onNext={nextStep}
             onPrev={prevStep}
+            onChange={handleDateChange}
+            dateValue={date}
           />
       </div>
     );
