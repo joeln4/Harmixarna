@@ -59,7 +59,7 @@ namespace api.Controllers
         return BadRequest("Ogiltigt datum");
       }
 
-      if (!TimeOnly.TryParse(createDto.StartTime, out var time))
+      if (!TimeOnly.TryParse(createDto.Time, out var time))
       {
         return BadRequest("Ogiltig tid");
       }
