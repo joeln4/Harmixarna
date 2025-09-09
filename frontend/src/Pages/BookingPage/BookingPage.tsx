@@ -62,10 +62,14 @@ function BookingPage() {
     };
   };
 
-  const handleDateChange = (value: Date) => {
-    console.log("Valt värde:", value.toISOString().slice(0, 10));
-    setDate(value);
-  }
+  const handleDateChange = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const dateString = `${year}-${month}-${day}`;
+    console.log("Valt värde:", dateString);
+    setDate(date);
+  };
 
 
   // Rendera olika steg baserat på "step"-state (alltså 0, 1 eller 2)
