@@ -48,7 +48,7 @@ namespace api.Controllers
     public IActionResult Create(CreateBookingDto createDto)
     {
       var treatments = _context.Treatments.Where(t => createDto.Treatments.Contains(t.Id)).ToList();
-      
+
       if (treatments.Count() == 0)
       {
         return BadRequest("Vänligen välj minst en behandling.");
@@ -64,12 +64,12 @@ namespace api.Controllers
         return BadRequest("Ogiltig tid");
       }
 
-        var booking = new Booking
-        {
-          // StartUtc = createDto.StartUtc,
-          // EndUtc = createDto.EndUtc,
-          Treatments = treatments
-        };
+      var booking = new Booking
+      {
+        // StartUtc = createDto.StartUtc,
+        // EndUtc = createDto.EndUtc,
+        Treatments = treatments
+      };
 
       _context.Bookings.Add(booking);
       _context.SaveChanges();
@@ -90,6 +90,19 @@ namespace api.Controllers
       _context.SaveChanges();
 
       return NoContent();
+    }
+
+    [HttpPost("times")]
+    public IActionResult GetAvailableTimes(BookingDateDto dateDto)
+    {
+      if (!DateOnly.TryParseExact(dateDto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue))
+      {
+        return BadRequest("Ogiligt datumformat, ska vara yyyy-MM-dd");
+      }
+
+      // ska hämta riktiga tider
+      var times = new[] { "08:00", "09:00", "11:00" };
+      return Ok(times);
     }
   }
 }
