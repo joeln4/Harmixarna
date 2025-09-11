@@ -42,9 +42,9 @@ namespace api.Mappers
                 customerEntity.Email = updateDto.Email;
                 customerEntity.Phone = updateDto.Phone;
                 customerEntity.Password = updateDto.Password;
-            };
+            }
+            ;
         }
     }
 }
 
- 

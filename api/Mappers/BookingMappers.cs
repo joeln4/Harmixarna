@@ -13,10 +13,10 @@ namespace api.Mappers
         {
             return new BookingDto
             {
-              Id = bookingEntity.Id,
-              StartTime = bookingEntity.StartTime,
-              EndTime = bookingEntity.EndTime,
-              Status = bookingEntity.Status
+                Id = bookingEntity.Id,
+                StartTime = bookingEntity.StartTime,
+                EndTime = bookingEntity.EndTime,
+                Status = bookingEntity.Status
             };
         }
     }

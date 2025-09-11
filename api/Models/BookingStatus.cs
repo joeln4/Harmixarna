@@ -11,5 +11,5 @@ namespace api.Models
         Cancelled,
         Completed
     }
-    
+
 }
