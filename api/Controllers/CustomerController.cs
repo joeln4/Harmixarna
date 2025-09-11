@@ -15,8 +15,8 @@ namespace api.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
-        public CustomerController(ApplicationDBContext context)
+        private readonly ApplicationDbContext _context;
+        public CustomerController(ApplicationDbContext context)
         {
             _context = context;
         }

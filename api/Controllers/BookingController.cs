@@ -16,9 +16,9 @@ namespace api.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public BookingController(ApplicationDBContext context)
+        public BookingController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -97,13 +97,22 @@ namespace api.Controllers
         [HttpPost("times")]
         public IActionResult GetAvailableTimes(BookingDateDto dateDto)
         {
+            var times = new[] { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00" };
+            var times2 = new[] { "14:00", "15:00", "16:00", "17:00", "18:00" };
+
             if (!DateOnly.TryParseExact(dateDto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue))
             {
                 return BadRequest("Ogiligt datumformat, ska vara yyyy-MM-dd");
             }
 
-            // ska hämta riktiga tider
-            var times = new[] { "08:00", "09:00", "11:00" };
+            var ids = dateDto.TreatmentIds;
+
+            if (ids.Contains(1))
+            {
+                return Ok(times2);
+            }
+
+                
             return Ok(times);
         }
     }

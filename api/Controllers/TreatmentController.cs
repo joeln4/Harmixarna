@@ -15,9 +15,9 @@ namespace api.Controllers
     [ApiController]
     public class TreatmentController : ControllerBase
     {
-        public readonly ApplicationDBContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TreatmentController(ApplicationDBContext context)
+        public TreatmentController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,7 +29,7 @@ namespace api.Controllers
 
             var treatmentDtos = treatments.Select(t => t.ToTreatmentDto()).ToList();
 
-            return Ok(treatments);
+            return Ok(treatmentDtos);
         }
 
         [HttpGet("{id}")]

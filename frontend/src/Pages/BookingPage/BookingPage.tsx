@@ -5,6 +5,8 @@ import Step1Treatments from "../../Components/BookingSteps/Step1Treatments";
 import "./BookingPage.css"
 import Step3CustomerInfo from "../../Components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types/Treatment.types";
+import { formatDate } from "../../lib/date";
+import fetchAvailability from "../../api/availability";
 
 
 /**
@@ -27,6 +29,8 @@ function BookingPage() {
 
   // Datumet som väljs i kalendern
   const [date, setDate] = useState<Date>(new Date());
+
+  const [times, setTimes] = useState<string[]>([]);
 
   // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
   // useMemo: skapa Set av valda id:n bara när selectedTreatments ändras,
@@ -62,13 +66,24 @@ function BookingPage() {
     };
   };
 
-  const handleDateChange = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const dateString = `${year}-${month}-${day}`;
-    console.log("Valt värde:", dateString);
+  const handleDateChange = async (date: Date) => {
+
+    const ids = selectedTreatments.map(t => t.id);
+    const dateString = formatDate(date);
+
+    console.log("Valt datumvärde:", dateString);
     setDate(date);
+
+    try {
+      const result = await fetchAvailability(date, ids); // Id på behandlingar för att räkna ut duration i backend
+      console.log("resultat från backend:", result); 
+      console.log("id:n:", ids);
+      setTimes(result);
+      console.log("times:", result);
+    } catch(err) {
+      console.log("fel vid hämnting av tider:", err);
+      setTimes([]);
+    }
   };
 
 
