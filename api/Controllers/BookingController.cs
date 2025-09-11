@@ -8,6 +8,7 @@ using api.Dtos.Booking;
 using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
@@ -23,18 +24,19 @@ namespace api.Controllers
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-      var bookings = _context.Bookings.ToList().Select(b => b.ToBookingDto());
+      var bookings = await _context.Bookings.ToListAsync();
 
-      return Ok(bookings);
+      var bookingDtos = bookings.Select(b => b.ToBookingDto()).ToList();
+
+      return Ok(bookingDtos);
     }
 
     [HttpGet("{id}")]
-
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-      var bookingEntity = _context.Bookings.Find(id);
+      var bookingEntity = await _context.Bookings.FindAsync(id);
 
       if (bookingEntity is null)
       {
@@ -45,21 +47,21 @@ namespace api.Controllers
     }
 
     [HttpPost]
-    public IActionResult Create(CreateBookingDto createDto)
+    public async Task<IActionResult> Create(CreateBookingDto createDto)
     {
-      var treatments = _context.Treatments.Where(t => createDto.Treatments.Contains(t.Id)).ToList();
+      var treatments = await _context.Treatments.Where(t => createDto.Treatments.Contains(t.Id)).ToListAsync();
 
-      if (treatments.Count() == 0)
+      if (treatments.Count == 0)
       {
         return BadRequest("Vänligen välj minst en behandling.");
       }
 
-      if (!DateOnly.TryParse(createDto.Date, out var date))
+      if (!DateOnly.TryParseExact(createDto.Date, "yyyy-MM-dd", out var date))
       {
         return BadRequest("Ogiltigt datum");
       }
 
-      if (!TimeOnly.TryParse(createDto.Time, out var time))
+      if (!TimeOnly.TryParseExact(createDto.Time, "yyyy-MM-dd", out var time))
       {
         return BadRequest("Ogiltig tid");
       }
@@ -71,8 +73,8 @@ namespace api.Controllers
         Treatments = treatments
       };
 
-      _context.Bookings.Add(booking);
-      _context.SaveChanges();
+      await _context.Bookings.AddAsync(booking);
+      await _context.SaveChangesAsync();
 
       return CreatedAtAction(nameof(GetById), new { id = booking.Id }, booking.ToBookingDto());
     }
