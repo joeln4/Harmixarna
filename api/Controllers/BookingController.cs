@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Booking;
+using api.Interfaces;
 using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,12 @@ namespace api.Controllers
     public class BookingController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IBookingService _bookingService;
 
-        public BookingController(ApplicationDbContext context)
+        public BookingController(ApplicationDbContext context, IBookingService bookingService)
         {
             _context = context;
+            _bookingService = bookingService;
         }
 
         [HttpGet]
@@ -33,7 +36,7 @@ namespace api.Controllers
             return Ok(bookingDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             var bookingEntity = await _context.Bookings.FindAsync(id);
@@ -95,25 +98,12 @@ namespace api.Controllers
         }
 
         [HttpPost("times")]
-        public IActionResult GetAvailableTimes(BookingDateDto dateDto)
+        public async Task<IActionResult> GetAvailableTimes(AvailableTimesRequestDto dto)
         {
-            var times = new[] { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00" };
-            var times2 = new[] { "14:00", "15:00", "16:00", "17:00", "18:00" };
 
-            if (!DateOnly.TryParseExact(dateDto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue))
-            {
-                return BadRequest("Ogiligt datumformat, ska vara yyyy-MM-dd");
-            }
-
-            var ids = dateDto.TreatmentIds;
-
-            if (ids.Contains(1))
-            {
-                return Ok(times2);
-            }
-
-                
-            return Ok(times);
+            var availableTimes = await _bookingService.GetAvailableTimes(dto);
+        
+            return Ok(availableTimes);
         }
     }
 }

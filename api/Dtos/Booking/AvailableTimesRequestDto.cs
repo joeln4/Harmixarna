@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Booking
 {
-    public class BookingDateDto
+    public class AvailableTimesRequestDto
     {
         public string Date { get; set; } = default!;
         public List<int> TreatmentIds { get; set; } = new();
