@@ -1,9 +1,8 @@
-import React, { useMemo } from "react";
-import { useState } from "react";
-import Step2DateTime from "../../Components/BookingSteps/Step2DateTime";
-import Step1Treatments from "../../Components/BookingSteps/Step1Treatments";
+import React, { useState, useMemo } from "react";
 import "./BookingPage.css";
-import Step3CustomerInfo from "../../Components/BookingSteps/Step3CustomerInfo";
+import Step1Treatments from "../../Components/BookingSteps/Step1Treatments";
+import Step2DateTime from "../../Components/BookingSteps/Step2DateTime";
+import Step3CustomerInfo, { FormFields } from "../../Components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types/Treatment.types";
 import { formatDate } from "../../lib/date";
 import fetchAvailability from "../../api/availability";
@@ -19,12 +18,12 @@ import fetchAvailability from "../../api/availability";
  */
 
 function BookingPage() {
-  
-  const [step, setStep] = useState<number>(0);        // Håller koll på vilket steg användaren befinner sig i (0, 1, 2)
+  const [step, setStep] = useState<number>(0); // Håller koll på vilket steg användaren befinner sig i (0, 1, 2)
   const [selectedTreatments, setSelectedTreatments] = useState<
-    TreatmentInterface[]>([]);                        // Alla behandlingar som användaren har valt (den temporära listan)
+    TreatmentInterface[]
+  >([]); // Alla behandlingar som användaren har valt (den temporära listan)
   const [date, setDate] = useState<Date>(new Date()); // Datumet som väljs i kalendern
-  const [times, setTimes] = useState<string[]>([]);   // Alla tider som hämtas från api
+  const [times, setTimes] = useState<string[]>([]); // Alla tider som hämtas från api
   const [chosenTime, setChosenTime] = useState<string | null>(null); // Den valda tiden
 
   // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
@@ -67,7 +66,6 @@ function BookingPage() {
   };
 
   const handleDateChange = async (date: Date) => {
-
     const ids = selectedTreatments.map((t) => t.id);
 
     const dateString = formatDate(date);
@@ -78,23 +76,29 @@ function BookingPage() {
     setChosenTime(null);
 
     try {
-        const result = await fetchAvailability(date, ids); // Id på behandlingar för att räkna ut duration i backend
-        console.log("resultat från backend:", result);
-        console.log("id:n:", ids);
-        setTimes(result);
-        console.log("times:", result);
-      } catch (err) {
-        console.log("fel vid hämnting av tider:", err);
-        setTimes([]);
-        setChosenTime(null);
-      }
-    
+      const result = await fetchAvailability(date, ids); // Id på behandlingar för att räkna ut duration i backend
+      console.log("resultat från backend:", result);
+      console.log("id:n:", ids);
+      setTimes(result);
+      console.log("times:", result);
+    } catch (err) {
+      console.log("fel vid hämnting av tider:", err);
+      setTimes([]);
+      setChosenTime(null);
+    }
   };
 
   //Sparar den valda tiden
   const handleTimeChange = (time: string) => {
     setChosenTime(time);
   };
+
+  const handleCreateBooking = (customerData: FormFields) => {
+    //Logik för att sammanställa datan, anropa bookingRequest för att skicka till backend
+    //sammanställ datan i en variabel som sedan läggs i parametern för bookingRequest
+    //datan ska se ut som den JSON backend förväntar sig (alltså dton)
+    //använd async, try catch
+  }
 
   // Rendera olika steg baserat på "step"-state (alltså 0, 1 eller 2)
   if (step === 0) {
@@ -128,7 +132,9 @@ function BookingPage() {
 
   return (
     <div className="bf-container">
-      <Step3CustomerInfo onPrev={prevStep} />
+      <Step3CustomerInfo 
+      onPrev={prevStep}
+      onSubmitCustomer={handleCreateBooking} />
     </div>
   );
 }
