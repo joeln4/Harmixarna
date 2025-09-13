@@ -17,12 +17,14 @@ const Step2DateTime = ({onNext, onPrev, onChange, onTime, dateValue, times, chos
     <div className="step-content">
       <h1>Välj datum och tid</h1>
       <Calendar onChange={(v) => onChange(v as Date)} value={dateValue} selectRange={false}/>
-      <button className="btn-prev" onClick={onPrev}>Tillbaka</button>
-      <button className="btn-next" onClick={onNext} disabled={!chosenTime}>Nästa</button>
       <div className="times-div">
         {times.length > 0 ? times.map(t => (
           <button onClick={() =>onTime(t)}key={t}>{t}</button>
         )) : <p>Inga lediga tider.</p>}   
+      </div>
+      <div className="step-btn-container">
+        <button className="btn-prev" onClick={onPrev}>Tillbaka</button>
+        <button className="btn-next" onClick={onNext} disabled={!chosenTime}>Nästa</button>
       </div>
     </div>
   )
