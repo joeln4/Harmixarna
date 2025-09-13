@@ -7,7 +7,6 @@ import Step3CustomerInfo from "../../Components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types/Treatment.types";
 import { formatDate } from "../../lib/date";
 import fetchAvailability from "../../api/availability";
-
 /**
  * BookingPage – Huvudsidan för bokningsflödet.
  * Hanterar de tre stegen:
@@ -20,20 +19,13 @@ import fetchAvailability from "../../api/availability";
  */
 
 function BookingPage() {
-  // Håller koll på vilket steg användaren befinner sig i (0, 1, 2)
-  const [step, setStep] = useState<number>(0);
-
-  // Alla behandlingar som användaren har valt (den temporära listan)
+  
+  const [step, setStep] = useState<number>(0);        // Håller koll på vilket steg användaren befinner sig i (0, 1, 2)
   const [selectedTreatments, setSelectedTreatments] = useState<
-    TreatmentInterface[]
-  >([]);
-
-  // Datumet som väljs i kalendern
-  const [date, setDate] = useState<Date>(new Date());
-
-  const [times, setTimes] = useState<string[]>([]);
-
-  const [chosenTime, setChosenTime] = useState<string | null>(null);
+    TreatmentInterface[]>([]);                        // Alla behandlingar som användaren har valt (den temporära listan)
+  const [date, setDate] = useState<Date>(new Date()); // Datumet som väljs i kalendern
+  const [times, setTimes] = useState<string[]>([]);   // Alla tider som hämtas från api
+  const [chosenTime, setChosenTime] = useState<string | null>(null); // Den valda tiden
 
   // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
   // useMemo: skapa Set av valda id:n bara när selectedTreatments ändras,
