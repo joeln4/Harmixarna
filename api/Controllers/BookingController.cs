@@ -55,34 +55,36 @@ namespace api.Controllers
             var treatments = await _context.Treatments.Where(t => dto.Treatments.Contains(t.Id)).ToListAsync();
 
             //Parsear det inkomna datumet från string yyyy-MM-dd till DateOnly
-            if (!DateOnly.TryParseExact(dto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue))
+            if (!DateOnly.TryParseExact(dto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date))
             {
                 throw new("Ogiltigt datumformat, ska vara yyyy-MM-dd");
             }
             //Parsear den inkomna tiden från HH-mm till TimeOnly
-            if (!TimeOnly.TryParseExact(dto.Time, "HH-mm", out var timeValue))
+            if (!TimeOnly.TryParseExact(dto.Time, "HH-mm", out var time))
             {
                 throw new("Ogiltigt tidsformat, ska vara HH-mm");
             }
 
-            //Sätt ihop dateValue + timeValue till DateTime. Detta blir StartTime i entiteten
+            //Lägger ihop datum och tid till DateTime
+            DateTime startTime = date.ToDateTime(time);
 
-            //Ta StartTime + Totalduration = EndTime (hämta durations på samma sätt som i BookingService)
+            //Görs till ticks (heltal) för att kunna summeras 
+            var totalTicks = await _context.Treatments.Where(t => dto.Treatments.Contains(t.Id)).Select(t => t.Duration.Ticks).SumAsync();
+            var totalDuration = TimeSpan.FromTicks(totalTicks);
 
-            //message = dto.message
-
+            //Lägger på duration på startTime för att få fram endTime
+            var endTime = startTime.Add(totalDuration);
 
             //Sätt en customer variabel och kontrollera om en email redan finns i customer. Om inte: skapa ny kund i databasen med dto värderna
             //Om den redan finns Sätt customer fälten = dto fälten för att uppdatera uppgifterna.
 
-
             var booking = new Booking
             {
-                // StartUtc = dateValue + timeValue (parsea till DateTime)
-                // EndUtc = StartTime + Totalduration (hämta durations på samma sätt som i BookingService)
-                //message = dto.message
+                StartTime = startTime,
+                EndTime = endTime,
+                Message = dto.Message,
                 //Customer = customer variabel
-                //Treatments = treatments
+                Treatments = treatments,
             };
 
             await _context.Bookings.AddAsync(booking);
@@ -111,7 +113,7 @@ namespace api.Controllers
         {
 
             var availableTimes = await _bookingService.GetAvailableTimes(dto);
-        
+
             return Ok(availableTimes);
         }
     }
