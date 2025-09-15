@@ -10,6 +10,7 @@ using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace api.Controllers
 {
@@ -57,35 +58,57 @@ namespace api.Controllers
             //Parsear det inkomna datumet från string yyyy-MM-dd till DateOnly
             if (!DateOnly.TryParseExact(dto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date))
             {
-                throw new("Ogiltigt datumformat, ska vara yyyy-MM-dd");
+                return BadRequest("Ogiltigt datumformat, ska vara yyyy-MM-dd");
             }
-            //Parsear den inkomna tiden från HH-mm till TimeOnly
-            if (!TimeOnly.TryParseExact(dto.Time, "HH-mm", out var time))
+            //Parsear den inkomna tiden från HH:mm till TimeOnly
+            if (!TimeOnly.TryParseExact(dto.Time, "HH:mm", out var time))
             {
-                throw new("Ogiltigt tidsformat, ska vara HH-mm");
+                return BadRequest("Ogiltigt tidsformat, ska vara HH:mm");
             }
 
             //Lägger ihop datum och tid till DateTime
             DateTime startTime = date.ToDateTime(time);
 
-            //Görs till ticks (heltal) för att kunna summeras 
-            var totalTicks = await _context.Treatments.Where(t => dto.Treatments.Contains(t.Id))
-            .Select(t => t.Duration.Ticks).SumAsync();
+            //Görs till ticks (heltal) för att kunna summeras
+            var totalTicks = treatments.Sum(t => t.Duration.Ticks);
             var totalDuration = TimeSpan.FromTicks(totalTicks);
 
             //Lägger på duration på startTime för att få fram endTime
             var endTime = startTime.Add(totalDuration);
+            
+            //Tar bort alla blanksteg innan och efter. Vet ej om det behövs med tanke på zod validering
+            var name = dto.Customer.Name.Trim();
+            var email = dto.Customer.Email.Trim().ToLowerInvariant();
+            var phone = string.IsNullOrWhiteSpace(dto.Customer.Phone) ? null : dto.Customer.Phone.Trim();
+            var message = string.IsNullOrWhiteSpace(dto.Message) ? null : dto.Message.Trim();
 
-            //Sätt en customer variabel och kontrollera om en email redan finns i customer. Om inte: skapa ny kund i databasen med dto värderna
-            //Om den redan finns Sätt customer fälten = dto fälten för att uppdatera uppgifterna.
+            //Hämtar kund baserat på om email redan finns
+            Customer? customer = await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
+
+            //Skapar ny kund om emailen inte finns annars byts namn och telefonnumer ut
+            if (customer is null)
+            {
+                customer = new Customer
+                {
+                    Name = name,
+                    Email = email,
+                    Phone = phone
+                };
+                await _context.AddAsync(customer);
+            }
+            else
+            {
+                customer.Name = name;
+                customer.Phone = phone;
+            }
 
             var booking = new Booking
             {
                 StartTime = startTime,
                 EndTime = endTime,
-                Message = dto.Message,
-                //Customer = customer variabel
-                Treatments = treatments,
+                Message = message,
+                Customer = customer,
+                Treatments = treatments
             };
 
             await _context.Bookings.AddAsync(booking);
