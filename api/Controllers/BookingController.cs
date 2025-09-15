@@ -36,7 +36,7 @@ namespace api.Controllers
             return Ok(bookingDtos);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}")] //Behövs :int?
         public async Task<IActionResult> GetById(int id)
         {
             var bookingEntity = await _context.Bookings.FindAsync(id);
@@ -50,30 +50,39 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateBookingDto createDto)
+        public async Task<IActionResult> Create(CreateBookingDto dto)
         {
-            var treatments = await _context.Treatments.Where(t => createDto.Treatments.Contains(t.Id)).ToListAsync();
+            var treatments = await _context.Treatments.Where(t => dto.Treatments.Contains(t.Id)).ToListAsync();
 
-            if (treatments.Count == 0)
+            //Parsear det inkomna datumet från string yyyy-MM-dd till DateOnly
+            if (!DateOnly.TryParseExact(dto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue))
             {
-                return BadRequest("Vänligen välj minst en behandling.");
+                throw new("Ogiltigt datumformat, ska vara yyyy-MM-dd");
+            }
+            //Parsear den inkomna tiden från HH-mm till TimeOnly
+            if (!TimeOnly.TryParseExact(dto.Time, "HH-mm", out var timeValue))
+            {
+                throw new("Ogiltigt tidsformat, ska vara HH-mm");
             }
 
-            if (!DateOnly.TryParseExact(createDto.Date, "yyyy-MM-dd", out var date))
-            {
-                return BadRequest("Ogiltigt datum");
-            }
+            //Sätt ihop dateValue + timeValue till DateTime. Detta blir StartTime i entiteten
 
-            if (!TimeOnly.TryParseExact(createDto.Time, "yyyy-MM-dd", out var time))
-            {
-                return BadRequest("Ogiltig tid");
-            }
+            //Ta StartTime + Totalduration = EndTime (hämta durations på samma sätt som i BookingService)
+
+            //message = dto.message
+
+
+            //Sätt en customer variabel och kontrollera om en email redan finns i customer. Om inte: skapa ny kund i databasen med dto värderna
+            //Om den redan finns Sätt customer fälten = dto fälten för att uppdatera uppgifterna.
+
 
             var booking = new Booking
             {
-                // StartUtc = createDto.StartUtc,
-                // EndUtc = createDto.EndUtc,
-                Treatments = treatments
+                // StartUtc = dateValue + timeValue (parsea till DateTime)
+                // EndUtc = StartTime + Totalduration (hämta durations på samma sätt som i BookingService)
+                //message = dto.message
+                //Customer = customer variabel
+                //Treatments = treatments
             };
 
             await _context.Bookings.AddAsync(booking);
@@ -97,7 +106,7 @@ namespace api.Controllers
             return NoContent();
         }
 
-        [HttpPost("times")]
+        [HttpPost("times")] // Ska det verkligen vara post?
         public async Task<IActionResult> GetAvailableTimes(AvailableTimesRequestDto dto)
         {
 
