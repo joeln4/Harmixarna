@@ -69,7 +69,8 @@ namespace api.Controllers
             DateTime startTime = date.ToDateTime(time);
 
             //Görs till ticks (heltal) för att kunna summeras 
-            var totalTicks = await _context.Treatments.Where(t => dto.Treatments.Contains(t.Id)).Select(t => t.Duration.Ticks).SumAsync();
+            var totalTicks = await _context.Treatments.Where(t => dto.Treatments.Contains(t.Id))
+            .Select(t => t.Duration.Ticks).SumAsync();
             var totalDuration = TimeSpan.FromTicks(totalTicks);
 
             //Lägger på duration på startTime för att få fram endTime
