@@ -1,4 +1,3 @@
-import React from 'react'
 import { BookingRequestInfo } from '../types/booking.types';
 
 async function bookingRequest (values: BookingRequestInfo)  {

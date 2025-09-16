@@ -14,8 +14,8 @@ namespace api.Models
         public BookingStatus Status { get; set; } = BookingStatus.Booked; // Behöver detta synas i frontend eller behövs den bara för intern logik? 
         public string? Message { get; set; }
         [ForeignKey("Customer")]
-        public int? CustomerId { get; set; }
-        public Customer? Customer { get; set; } //Navigation Property, Kolla upp det varför det används
+        public int CustomerId { get; set; }
+        public required Customer Customer { get; set; } //Navigation Property, Kolla upp det varför det används
         public ICollection<Treatment> Treatments { get; set; } = new List<Treatment>();
     };
 };

@@ -30,7 +30,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var bookings = await _context.Bookings.ToListAsync();
+            var bookings = await _context.Bookings.AsNoTracking().Include(b => b.Treatments).Include(b => b.Customer).ToListAsync();
 
             var bookingDtos = bookings.Select(b => b.ToBookingDto()).ToList();
 
@@ -75,7 +75,7 @@ namespace api.Controllers
 
             //Lägger på duration på startTime för att få fram endTime
             var endTime = startTime.Add(totalDuration);
-            
+
             //Tar bort alla blanksteg innan och efter. Vet ej om det behövs med tanke på zod validering
             var name = dto.Customer.Name.Trim();
             var email = dto.Customer.Email.Trim().ToLowerInvariant();

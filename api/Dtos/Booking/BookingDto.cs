@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.Customer;
 using api.Models;
+
 
 namespace api.Dtos.Booking
 {
@@ -12,6 +14,10 @@ namespace api.Dtos.Booking
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public BookingStatus Status { get; set; }
+        public List<int> TreatmentIds { get; set; } = new();
+        public string? Message { get; set; }
+        public CustomerInfoDto Customer { get; set; } = default!;
+
     };
 
 };
