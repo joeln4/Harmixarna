@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Steps.css";
 import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css'
 
 type Props = {
   onNext: () => void;
