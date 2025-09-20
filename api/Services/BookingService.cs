@@ -75,7 +75,6 @@ namespace api.Services
                 {
                     availableTimes.Add(slotStart.ToString("HH:mm"));
                 }
-                Console.WriteLine($"duraiton {totalDuration}");
             };
             return availableTimes;
         }
