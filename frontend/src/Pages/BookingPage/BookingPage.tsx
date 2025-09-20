@@ -163,6 +163,9 @@ function BookingPage() {
       <Step3CustomerInfo
         onPrev={prevStep}
         onSubmitCustomer={handleCreateBooking}
+        treatments={selectedTreatments}
+        date={date}
+        time={chosenTime}
       />
     </div>
   );

@@ -6,3 +6,14 @@ export const formatDate = (d: Date) => {
 
   return `${year}-${month}-${day}`;
 }
+
+export const formatDateToSE = (d: Date) => {
+  const formatted = new Intl.DateTimeFormat("sv-SE", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(d);
+
+  return formatted;
+}
