@@ -16,10 +16,10 @@ type Props = {
 };
 
 const schema = z.object({
-  name: z.string().min(2, "Namn är obligatoriskt"),
-  email: z.email({ message: "Ogiltig e-postadress" }),
-  phone: z.string().optional(),
-  message: z.string().optional(),
+  name: z.string().min(1, "Namn är obligatoriskt").min(2, "Namnet måste vara minst 2 tecken").max(150, "Namnet får max vara 150 tecken"),
+  email: z.string().min(1, "E-post är obligatoriskt").email({ message: "Ogiltig e-post" }),
+  phone: z.string().max(20, "Telefonnumret är för långt").optional(),
+  message: z.string().max(500, "Meddelandet för max vara 500 tecken").optional(),
 });
 
 export type FormFields = z.infer<typeof schema>;
@@ -47,7 +47,7 @@ const Step3CustomerInfo = ({
     <div className="step-content">
       <h1>Fyll i uppgifter</h1>
       <div className="form-container">
-        <form className="customer-form" onSubmit={handleSubmit(onSubmit)}>
+        <form noValidate className="customer-form" onSubmit={handleSubmit(onSubmit)}>
           <input {...register("name")} type="text" placeholder="Namn" />
           {errors.name && (
             <div className="error-message">{errors.name.message}</div>
@@ -61,11 +61,17 @@ const Step3CustomerInfo = ({
             type="text"
             placeholder="Telefonnummer"
           />
+          {errors.phone && (
+            <div className="error-message">{errors.phone.message}</div>
+          )}
           <input
             {...register("message")}
             type="text"
             placeholder="Meddelande"
           />
+          {errors.message && (
+            <div className="error-message">{errors.message.message}</div>
+          )}
         </form>
       </div>
 
