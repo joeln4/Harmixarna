@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Booking;
 using api.Dtos.Customer;
+using api.Dtos.Treatment;
 using api.Models;
 
 namespace api.Mappers
@@ -19,8 +20,16 @@ namespace api.Mappers
                 StartTime = bookingEntity.StartTime,
                 EndTime = bookingEntity.EndTime,
                 Status = bookingEntity.Status,
-                TreatmentIds = bookingEntity.Treatments.Select(t => t.Id).ToList(),
                 Message = bookingEntity.Message,
+                Treatments = bookingEntity.Treatments.Select(t => new TreatmentDto
+                {
+                    Id = t.Id,
+                    Type = t.Type,
+                    Price = t.Price,
+                    Description = t.Description,
+                    Duration = t.Duration
+
+                }).ToList(),
                 Customer = new CustomerInfoDto
                 {
                     Name = bookingEntity.Customer.Name,

@@ -1,6 +1,6 @@
-import { BookingRequestInfo } from '../types/booking.types';
+import { BookingDto, BookingRequestInfo } from '../types/booking.types';
 
-async function bookingRequest (values: BookingRequestInfo)  {
+async function bookingRequest (values: BookingRequestInfo): Promise<BookingDto>  {
 
   const res = await fetch("http://localhost:5296/api/booking/", {
   method: "POST",
@@ -8,9 +8,9 @@ async function bookingRequest (values: BookingRequestInfo)  {
   body: JSON.stringify(values),
   });
   if(!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText}`); // Ändra denna?
+    throw new Error(`API error: ${res.status} ${res.statusText}`); 
   };
-  return res.json();
+  return await res.json()
 };
 
 export default bookingRequest

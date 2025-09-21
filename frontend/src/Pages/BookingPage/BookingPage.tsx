@@ -121,11 +121,13 @@ function BookingPage() {
     };
 
     try {
-      await bookingRequest(values);
-      console.log("Bokningen lyckades!")
+      const newBooking = await bookingRequest(values);
+      console.log(`Bokningen lyckades!, idt är: ${newBooking.id}`)
+      // navigate(`/booking/confirmation/${newBooking.id}`);
     } catch (err) {
       console.log("Det gick inte att skapa bokning:", err);
     }
+
   };
 
   // Rendera olika steg baserat på "step"-state (alltså 0, 1 eller 2)

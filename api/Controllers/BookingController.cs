@@ -40,7 +40,7 @@ namespace api.Controllers
         [HttpGet("{id:int}")] //Behövs :int?
         public async Task<IActionResult> GetById(int id)
         {
-            var bookingEntity = await _context.Bookings.FindAsync(id);
+            var bookingEntity = await _context.Bookings.AsNoTracking().Include(b => b.Treatments).Include(b => b.Customer).FirstOrDefaultAsync(b => b.Id == id);
 
             if (bookingEntity is null)
             {
