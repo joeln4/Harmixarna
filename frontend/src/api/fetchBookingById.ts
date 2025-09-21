@@ -1,14 +1,11 @@
+import { BookingDto } from "../types/booking.types";
+
 async function fetchBookingById(
-  date: string,
-  treatmentIds: number[]
-): Promise<string[]> {
-  const res = await fetch("http://localhost:5296/api/booking/times", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ date: date, treatmentIds: treatmentIds }),
-  });
+  id: string | number,
+): Promise<BookingDto> {
+  const res = await fetch(`http://localhost:5296/api/booking/${id}`);
   if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText}`); // Ändra denna?
+    throw new Error(`API error: ${res.status} ${res.statusText}`); 
   }
   return res.json();
 }

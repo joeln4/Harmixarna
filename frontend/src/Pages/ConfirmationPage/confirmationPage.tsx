@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { BookingDto } from '../../types/booking.types';
 
-type Props = {}
 
-const confirmationPage = (props: Props) => {
+const confirmationPage = () => {
+  const [booking, setBooking] = useState<BookingDto | null>(null);
+
+  useEffect(() => {
+    const fetchBooking = async () => {
+      
+    }
+
+  })
+  
+
+
   return (
     <div>confirmationPage</div>
   )
