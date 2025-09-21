@@ -4,7 +4,7 @@ import {TreatmentInterface} from "../../types/Treatment.types";
 
 interface Props {
   treatment: TreatmentInterface;
-  selected: boolean;                // Om behandlingen är vald eller inte
+  isSelected: boolean;                // Om behandlingen är vald eller inte
   onAdd: () => void;                // Callback för att lägga till behandling i temporär lista
   onRemove: () => void;             // Callback för att ta bort behandling i temporär lista
 };
@@ -13,7 +13,7 @@ interface Props {
  * TreatmentCard – Visar information om en behandling
  * och låter användaren lägga till eller ta bort den.
  */
-const TreatmentCard = ({treatment, selected, onAdd, onRemove}: Props) => {
+const TreatmentCard = ({treatment, isSelected, onAdd, onRemove}: Props) => {
   return (
     <div className="treatment-card">
       <div className="tc-content">
@@ -26,9 +26,9 @@ const TreatmentCard = ({treatment, selected, onAdd, onRemove}: Props) => {
       </div>
       
       <div className="tc-btn-cont">
-        <span className="selected-text">{selected ? "Tillagd \u2713" : ""}</span>
-        <button className={selected ? "tc-btn-remove" : "tc-btn-add"} onClick={selected ? onRemove : onAdd}>
-          {selected ? "Ta bort" : "Lägg Till"}
+        <span className="selected-text">{isSelected ? "Tillagd \u2713" : ""}</span>
+        <button className={isSelected ? "tc-btn-remove" : "tc-btn-add"} onClick={isSelected ? onRemove : onAdd}>
+          {isSelected ? "Ta bort" : "Lägg Till"}
         </button>
       </div>
     </div>

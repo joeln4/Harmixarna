@@ -9,14 +9,14 @@ interface Props {
   onAdd: (t: TreatmentInterface) => void;     // Callback när en behandling läggs till i temporär lista
   onRemove: (id: string | number) => void;    // Callback när en behandling tas bort från temporär lista
   error?: string | null;                      // returnerar felmeddelande om något gått snett eller null
-  loading: boolean;                           // Om listan laddar data just nu
+  isLoading: boolean;                           // Om listan laddar data just nu
 };
 
 /**
  * TreatmentCardList – Visar en lista med behandlingar.
  * Hanterar också loading-state, felmeddelanden och tom lista.
  */
-const TreatmentCardList = ({treatments, selectedIds, onAdd, onRemove, error, loading } : Props) => {
+const TreatmentCardList = ({treatments, selectedIds, onAdd, onRemove, error, isLoading } : Props) => {
   return (
     <div className="treatment-card-list">
 
@@ -24,12 +24,12 @@ const TreatmentCardList = ({treatments, selectedIds, onAdd, onRemove, error, loa
       {error && <p><strong>Fel:</strong> {error}</p>}
       
       {/* Laddningsindikator och kontroll om listan är tom, annars visa behandlingarna  */}
-      {loading ? <h1>Laddar...</h1> : (
+      {isLoading ? <h1>Laddar...</h1> : (
         treatments.length > 0 ? treatments.map(t => (
         <TreatmentCard 
         key={t.id} 
         treatment={t} 
-        selected={selectedIds.has(t.id)} // Markerar om just denna behandling är vald
+        isSelected={selectedIds.has(t.id)} // Markerar om just denna behandling är vald
         onAdd={() => onAdd(t)}
         onRemove={() => onRemove(t.id)}
         />)) : <p>Inga behandlingar hittades</p>) }

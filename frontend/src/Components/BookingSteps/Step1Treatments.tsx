@@ -20,7 +20,7 @@ type Props = {
 const Step1Treatments = ({selectedIds, onAdd, onRemove, onNext}: Props) => {
   const [treatments, setTreatments] = useState<TreatmentInterface[]>([]) // Listan med hämtade behandlingar från API:t
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Hämta behandlingar från API vid första render
   useEffect(() => {
@@ -28,7 +28,7 @@ const Step1Treatments = ({selectedIds, onAdd, onRemove, onNext}: Props) => {
     .then(res => res.json())
     .then(data => setTreatments(data))
     .catch(error => setError(error.message))
-    .finally(() => setLoading(false));
+    .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -40,7 +40,7 @@ const Step1Treatments = ({selectedIds, onAdd, onRemove, onNext}: Props) => {
         onAdd={onAdd}
         onRemove={onRemove}
         error={error}
-        loading={loading}
+        isLoading={isLoading}
       />
 
       <div className="btn-next-container">

@@ -29,6 +29,7 @@ function BookingPage() {
   const [date, setDate] = useState<Date>(new Date()); // Datumet som väljs i kalendern
   const [times, setTimes] = useState<string[]>([]); // Alla tider som hämtas från api
   const [chosenTime, setChosenTime] = useState<string | null>(null); // Den valda tiden
+  const [error, setError] = useState<string | null>(null);
 
   // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
   // useMemo: skapa Set av valda id:n bara när selectedTreatments ändras,
@@ -78,15 +79,17 @@ function BookingPage() {
     setDate(date);
     setTimes([]);
     setChosenTime(null);
+    setError(null);
 
     try {
-      const result = await fetchAvailability(dateString, ids); // Id på behandlingar för att räkna ut duration i backend
-      console.log("resultat från backend:", result);
+      const res = await fetchAvailability(dateString, ids); // Id på behandlingar för att räkna ut duration i backend
+      console.log("resultat från backend:", res);
       console.log("id:n:", ids);
-      setTimes(result);
-      console.log("times:", result);
-    } catch (err) {
+      setTimes(res);
+      console.log("times:", res);
+    } catch (err: any) {
       console.log("fel vid hämnting av tider:", err);
+      setError(err);
       setTimes([]);
       setChosenTime(null);
     }
@@ -99,6 +102,7 @@ function BookingPage() {
 
   //Tar in värdena från kundformuläret och försöker skapa bokning
   const handleCreateBooking = async (customerData: FormFields) => {
+    setError(null);
     //Endast kontroll för om det skulle ske någon bugg
     if (selectedTreatments.length === 0 || !chosenTime || !date) {
       console.error("Saknar data för att skapa bokning!");
@@ -124,11 +128,15 @@ function BookingPage() {
       const newBooking = await bookingRequest(values);
       console.log(`Bokningen lyckades!, idt är: ${newBooking.id}`)
       // navigate(`/booking/confirmation/${newBooking.id}`);
-    } catch (err) {
+    } catch (err: any) {
       console.log("Det gick inte att skapa bokning:", err);
+      setError(err);
     }
-
   };
+
+  if(error) {
+    return <h1>Något gick fel! Vänligen försök igen.</h1>
+  }
 
   // Rendera olika steg baserat på "step"-state (alltså 0, 1 eller 2)
   if (step === 0) {
