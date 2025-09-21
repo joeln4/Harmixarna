@@ -6,7 +6,7 @@ import "./confirmationPage.css";
 const ConfirmationPage = () => {
 
   const [booking, setBooking] = useState<BookingDto | null>(null);
-  const [id, setId] = useState<number>(1)
+  const [id, setId] = useState<number>(1) // Vet inte om detta behövs, gjordes för test
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
