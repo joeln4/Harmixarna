@@ -1,10 +1,10 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import BookingPage from "./Pages/BookingPage/BookingPage";
 
 function App() {
   return (
     <div className="App">
-      <BookingPage />
+      <Outlet />
     </div>
   );
 }
