@@ -20,17 +20,18 @@ const ConfirmationPage = () => {
       abortControllerRef.current = new AbortController();
 
       setError(null);
-      setIsLoading(true);
 
       if(!id) {
         setError("Fel! Det gick inte att hämta bokningen.")
         return;
       }
 
+      setIsLoading(true);
+
       try {
         const res = await fetchBookingById(
           id,
-          abortControllerRef.current?.signal
+          abortControllerRef.current.signal
         );
         setBooking(res);
       } catch (err: any) {
@@ -47,7 +48,7 @@ const ConfirmationPage = () => {
   return (
     <div>
       {isLoading ? (
-        <h1>Skapar bokning...</h1>
+        <h1>Skapar bokningsbekräftelse...</h1>
       ) : error ? (
         <h1>Något gick fel! Vänligen försök igen.</h1>
       ) : (
@@ -60,7 +61,7 @@ const ConfirmationPage = () => {
             <dd>{booking?.startTime}</dd>
 
             <dt>Meddelande: </dt>
-            <dd>{booking?.message}</dd>
+            <dd>{booking?.message ?? "-"}</dd>
 
             <dt>Behandlingar:</dt>
             <dd>
