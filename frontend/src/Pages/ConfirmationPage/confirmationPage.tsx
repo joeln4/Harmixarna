@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BookingDto } from "../../types/booking.types";
 import fetchBookingById from "../../api/fetchBookingById";
-import "./confirmationPage.css";
+import "./ConfirmationPage.css";
 
 const ConfirmationPage = () => {
 
