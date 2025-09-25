@@ -10,6 +10,7 @@ import { formatDate } from "../../lib/date";
 import fetchAvailability from "../../api/availability";
 import { BookingRequestInfo } from "../../types/booking.types";
 import bookingRequest from "../../api/bookingRequest";
+import { useNavigate } from "react-router-dom";
 /**
  * BookingPage – Huvudsidan för bokningsflödet.
  * Hanterar de tre stegen:
@@ -30,6 +31,8 @@ function BookingPage() {
   const [times, setTimes] = useState<string[]>([]); // Alla tider som hämtas från api
   const [chosenTime, setChosenTime] = useState<string | null>(null); // Den valda tiden
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
   // useMemo: skapa Set av valda id:n bara när selectedTreatments ändras,
@@ -126,8 +129,8 @@ function BookingPage() {
 
     try {
       const newBooking = await bookingRequest(values);
-      console.log(`Bokningen lyckades!, idt är: ${newBooking.id}`)
-      // navigate(`/booking/confirmation/${newBooking.id}`);
+      console.log(`Bokningen lyckades!, idt är: ${newBooking.id}`);
+      navigate(`/confirmation/${newBooking.id}`);
     } catch (err: any) {
       console.log("Det gick inte att skapa bokning:", err);
       setError(err);

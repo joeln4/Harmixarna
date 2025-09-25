@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BookingDto } from "../../types/booking.types";
 import fetchBookingById from "../../api/fetchBookingById";
+import { useParams } from "react-router-dom";
 import "./ConfirmationPage.css";
 
 const ConfirmationPage = () => {
 
   const [booking, setBooking] = useState<BookingDto | null>(null);
-  const [id, setId] = useState<number>(1) // Vet inte om detta behövs, gjordes för test
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  const {id}= useParams<{id: string}>();
+  console.log(id);
 
   useEffect(() => {
     const fetchBooking = async () => {
@@ -18,6 +21,12 @@ const ConfirmationPage = () => {
 
       setError(null);
       setIsLoading(true);
+
+      if(!id) {
+        setError("Fel! Det gick inte att hämta bokningen.")
+        return;
+      }
+
       try {
         const res = await fetchBookingById(
           id,
@@ -43,7 +52,6 @@ const ConfirmationPage = () => {
         <h1>Något gick fel! Vänligen försök igen.</h1>
       ) : (
         <div>
-          <button onClick={() => setId(id + 1)}>Öka idt</button>
           <dl className="summary-grid">
             <dt>Bokningsnummer:</dt>
             <dd>{booking?.id}</dd>
