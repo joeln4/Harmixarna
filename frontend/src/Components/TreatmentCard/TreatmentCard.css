@@ -1,7 +1,3 @@
-p {
-  margin: 0;
-}
-
 .treatment-card {
   display: flex;
   justify-content: space-between;
@@ -36,8 +32,6 @@ p {
 
 .selected-text {
   color: rgb(13, 150, 13);
-  
-  
 }
 
 .tc-duration::after {
