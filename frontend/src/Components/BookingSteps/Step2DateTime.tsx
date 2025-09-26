@@ -1,7 +1,9 @@
 import React from 'react'
 import "./Steps.css";
+import "./Calendar.css";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'
+import { disableDates } from '../../utils/calendarUtils';
 
 type Props = {
   onNext: () => void;
@@ -17,7 +19,7 @@ const Step2DateTime = ({onNext, onPrev, onChange, onTime, dateValue, times, chos
   return (
     <div className="step-content">
       <h1>Välj datum och tid</h1>
-      <Calendar onChange={(v) => onChange(v as Date)} value={dateValue} selectRange={false}/>
+      <Calendar className="react-calendar" onChange={(v) => onChange(v as Date)} value={dateValue} selectRange={false} tileDisabled={disableDates} />
       <div className="times-div">
         {times.length > 0 ? times.map(t => (
           <button onClick={() =>onTime(t)}key={t}>{t}</button>

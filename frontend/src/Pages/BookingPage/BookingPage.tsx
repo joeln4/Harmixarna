@@ -7,7 +7,7 @@ import Step3CustomerInfo, {
 } from "../../Components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types/Treatment.types";
 import { formatDate } from "../../lib/date";
-import fetchAvailability from "../../api/availability";
+import FetchAvailableTimes from "../../api/FetchAvailableTimes";
 import { BookingRequestInfo } from "../../types/booking.types";
 import bookingRequest from "../../api/bookingRequest";
 import { useNavigate } from "react-router-dom";
@@ -85,7 +85,7 @@ function BookingPage() {
     setError(null);
 
     try {
-      const res = await fetchAvailability(dateString, ids); // Id på behandlingar för att räkna ut duration i backend
+      const res = await FetchAvailableTimes(dateString, ids); // Id på behandlingar för att räkna ut duration i backend
       console.log("resultat från backend:", res);
       console.log("id:n:", ids);
       setTimes(res);

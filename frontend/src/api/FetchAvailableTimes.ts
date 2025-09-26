@@ -1,5 +1,5 @@
 //Metod som skickar datumet som klickats på till api och returnerar tillgängliga tider.
-async function fetchAvailability(
+async function FetchAvailableTimes(
   date: string,
   treatmentIds: number[]
 ): Promise<string[]> {
@@ -14,4 +14,4 @@ async function fetchAvailability(
   return res.json();
 }
 
-export default fetchAvailability;
+export default FetchAvailableTimes;

@@ -18,7 +18,7 @@ namespace api.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<string>> GetAvailableTimes(AvailableTimesRequestDto dto)
+        public async Task<IEnumerable<string>> GetAvailableTimesAsync(AvailableTimesRequestDto dto)
         {
             //Ska ändras så att det blir egen entitet och tabell i databasen, så att admin kan ändra
             var openingTime = new TimeOnly(9, 0);
@@ -39,7 +39,7 @@ namespace api.Services
             //Sätter intervall för dagen för att kunna hämta bokningar satta samma dag
             var startOfDay = dateValue.ToDateTime(openingTime);
             var endOfDay = dateValue.ToDateTime(closingTime);
-            
+
             var durations = await _context.Treatments.Where(t => dto.TreatmentIds.Contains(t.Id)).Select(t => t.Duration).ToListAsync();
 
             //görs till ticks (heltal) för att kunna summeras
@@ -51,7 +51,7 @@ namespace api.Services
             {
                 return [];
             }
-    
+
             //Hämtar bokningar som är på valda datumet
             var bookingsThatDay = await _context.Bookings.AsNoTracking()
             .Where(b => b.StartTime < endOfDay && b.EndTime > startOfDay)
@@ -61,7 +61,7 @@ namespace api.Services
 
             //Steg som kollar om ledig plats finns var 15e minut på dagen för att det är den kortaste behandlingen
             TimeSpan slotStep = TimeSpan.FromMinutes(15);
-            
+
             var availableTimes = new List<string>();
             var lastStart = endOfDay - totalDuration;
 
@@ -75,8 +75,38 @@ namespace api.Services
                 {
                     availableTimes.Add(slotStart.ToString("HH:mm"));
                 }
-            };
+            }
+            
+
             return availableTimes;
+        }
+
+        public async Task<List<string>> GetAvailableDatesAsync(int year, int month, List<int> ids)
+        {
+            //Se till så att year och month kommer i rätt format från frontend
+
+            var availableDates = new List<string>();
+            var daysInMonth = DateTime.DaysInMonth(year, month);
+
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                var date = new DateOnly(year, month, day);
+
+                var dto = new AvailableTimesRequestDto
+                {
+                    Date = date.ToString("yyyy-MM-dd"),
+                    TreatmentIds = ids
+                };
+                var times = await GetAvailableTimesAsync(dto);
+
+                if (times.Any())
+                {
+                    availableDates.Add(dto.Date);
+                }
+            }
+            
+
+            return availableDates;
         }
     }
 }

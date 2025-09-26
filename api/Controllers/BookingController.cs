@@ -136,7 +136,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetAvailableTimes(AvailableTimesRequestDto dto)
         {
 
-            var availableTimes = await _bookingService.GetAvailableTimes(dto);
+            var availableTimes = await _bookingService.GetAvailableTimesAsync(dto);
 
             return Ok(availableTimes);
         }
