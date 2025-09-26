@@ -1,4 +1,4 @@
-import fetchAvailability from "../api/FetchAvailableTimes"
+
 
 export function disableDates({date}: {date: Date}) {
   
