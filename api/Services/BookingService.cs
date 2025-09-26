@@ -81,9 +81,12 @@ namespace api.Services
             return availableTimes;
         }
 
-        public async Task<List<string>> GetAvailableDatesAsync(int year, int month, List<int> ids)
+        public async Task<List<string>> GetAvailableDatesAsync(AvailableDatesRequestDto datesDto)
         {
             //Se till så att year och month kommer i rätt format från frontend
+            var year = datesDto.Year;
+            var month = datesDto.Month;
+            var ids = datesDto.TreatmentIds;
 
             var availableDates = new List<string>();
             var daysInMonth = DateTime.DaysInMonth(year, month);
@@ -92,20 +95,18 @@ namespace api.Services
             {
                 var date = new DateOnly(year, month, day);
 
-                var dto = new AvailableTimesRequestDto
+                var timesDto = new AvailableTimesRequestDto
                 {
                     Date = date.ToString("yyyy-MM-dd"),
                     TreatmentIds = ids
                 };
-                var times = await GetAvailableTimesAsync(dto);
+                var times = await GetAvailableTimesAsync(timesDto);
 
                 if (times.Any())
                 {
-                    availableDates.Add(dto.Date);
+                    availableDates.Add(timesDto.Date);
                 }
-            }
-            
-
+            } 
             return availableDates;
         }
     }

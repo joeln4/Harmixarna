@@ -9,7 +9,7 @@ async function FetchAvailableTimes(
     body: JSON.stringify({ date: date, treatmentIds: treatmentIds }),
   });
   if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText}`); // Ändra denna?
+    throw new Error(`API error: ${res.status} ${res.statusText}`);
   }
   return res.json();
 }

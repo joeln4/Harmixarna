@@ -11,6 +11,7 @@ import FetchAvailableTimes from "../../api/FetchAvailableTimes";
 import { BookingRequestInfo } from "../../types/booking.types";
 import bookingRequest from "../../api/bookingRequest";
 import { useNavigate } from "react-router-dom";
+import FetchAvailableDays from "../../api/FetchAvailableDays";
 /**
  * BookingPage – Huvudsidan för bokningsflödet.
  * Hanterar de tre stegen:
@@ -28,6 +29,8 @@ function BookingPage() {
     TreatmentInterface[]
   >([]); // Alla behandlingar som användaren har valt (den temporära listan)
   const [date, setDate] = useState<Date>(new Date()); // Datumet som väljs i kalendern
+  const [activeStartDate, setActiveStartDate] = useState<Date>(new Date()); // Det första datumet på den laddade sidan för att få fram år och månad.
+  const [availableDays, setAvailableDays] = useState<string[]>([]); //Listan med alla tillgängliga dagar för månaden, använd för att disablea
   const [times, setTimes] = useState<string[]>([]); // Alla tider som hämtas från api
   const [chosenTime, setChosenTime] = useState<string | null>(null); // Den valda tiden
   const [error, setError] = useState<string | null>(null);
@@ -56,8 +59,11 @@ function BookingPage() {
 
   // Gå vidare till nästa steg (endast om man är på steg 0 eller 1)
   const nextStep = () => {
-    if (step === 0 || step === 1) {
-      setStep(step + 1);
+    if (step === 0) {
+      setStep(1);
+      fetchMonthAvailability(activeStartDate, selectedTreatments.map((t) => t.id)) //Laddar kalendern så den är redo när den visas
+    } else if (step === 1) {
+      setStep(2);
     }
   };
 
@@ -66,6 +72,7 @@ function BookingPage() {
     if (step === 1) {
       setTimes([]);
       setChosenTime(null);
+      setActiveStartDate(new Date());
     }
 
     if (step === 1 || step === 2) {
@@ -102,6 +109,29 @@ function BookingPage() {
   const handleTimeChange = (time: string) => {
     setChosenTime(time);
   };
+
+  async function fetchMonthAvailability(startDate: Date, treatmentIds: number[]) {
+
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth() + 1;
+    try {
+      const res = await FetchAvailableDays({ year: year, month: month, ids: treatmentIds});
+      setAvailableDays(res);
+      console.log("dagar:", availableDays);
+      console.log("år", year);
+      console.log("månad", month);
+    } catch (err: any) {
+      console.log("fel vid hämnting av tider:", err);
+      setError(err);
+    }
+  }
+
+  const handleMonthChange = (startDate: Date) => {
+    
+    setActiveStartDate(startDate);
+    const ids = selectedTreatments.map((t) => t.id);
+    fetchMonthAvailability(startDate, ids);
+  }
 
   //Tar in värdena från kundformuläret och försöker skapa bokning
   const handleCreateBooking = async (customerData: FormFields) => {
@@ -161,10 +191,13 @@ function BookingPage() {
         <Step2DateTime
           onNext={nextStep}
           onPrev={prevStep}
-          onChange={handleDateChange}
+          onDateChange={handleDateChange}
+          activeStartDate={activeStartDate}
+          onActiveStartDateChange={handleMonthChange}
           onTime={handleTimeChange}
           dateValue={date}
           times={times}
+          availableDays={availableDays}
           chosenTime={chosenTime}
         />
       </div>

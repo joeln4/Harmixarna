@@ -9,6 +9,6 @@ namespace api.Interfaces
     public interface IBookingService
     {
         Task<IEnumerable<string>> GetAvailableTimesAsync(AvailableTimesRequestDto dto);
-        Task<List<string>> GetAvailableDatesAsync(int year, int month, List<int> ids);
+        Task<List<string>> GetAvailableDatesAsync(AvailableDatesRequestDto dto);
     }
 }

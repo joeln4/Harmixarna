@@ -135,10 +135,18 @@ namespace api.Controllers
         [HttpPost("times")] // Ska det verkligen vara post?
         public async Task<IActionResult> GetAvailableTimes(AvailableTimesRequestDto dto)
         {
-
             var availableTimes = await _bookingService.GetAvailableTimesAsync(dto);
 
             return Ok(availableTimes);
+        }
+
+        [HttpGet("dates")]
+
+        public async Task<IActionResult> GetAvailableDates([FromQuery] AvailableDatesRequestDto dto)
+        {
+            var availableDates = await _bookingService.GetAvailableDatesAsync(dto);
+
+            return Ok(availableDates);
         }
     }
 }
