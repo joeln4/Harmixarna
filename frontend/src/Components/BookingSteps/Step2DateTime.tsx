@@ -44,6 +44,8 @@ const Step2DateTime = ({
       date.getDay() === 0 || date.getDay() === 6 
     );
   }
+
+    //För att inte krångla med tidzoner, kanske inte nödvändigt
     const dateStart = new Date(date);
     dateStart.setHours(0,0,0,0);
 
