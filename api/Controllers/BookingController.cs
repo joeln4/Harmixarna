@@ -146,6 +146,10 @@ namespace api.Controllers
         {
             var availableDates = await _bookingService.GetAvailableDatesAsync(dto);
 
+
+            Console.WriteLine("Metoden Körs!");
+            Console.WriteLine(string.Join(", ", availableDates));
+
             return Ok(availableDates);
         }
     }

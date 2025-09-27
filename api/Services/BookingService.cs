@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +14,11 @@ namespace api.Services
     public class BookingService : IBookingService
     {
         private readonly ApplicationDbContext _context;
-        public BookingService(ApplicationDbContext context)
+        private readonly ILogger<BookingService> _logger;
+        public BookingService(ApplicationDbContext context, ILogger<BookingService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<string>> GetAvailableTimesAsync(AvailableTimesRequestDto dto)
@@ -86,7 +89,9 @@ namespace api.Services
             //Se till så att year och month kommer i rätt format från frontend
             var year = datesDto.Year;
             var month = datesDto.Month;
-            var ids = datesDto.TreatmentIds;
+            var ids = datesDto.Ids;
+
+            _logger.LogInformation("Parametrar in GetAvailableDatesAsync {year}--{month} och {ids}", year, month, string.Join(",", ids));
 
             var availableDates = new List<string>();
             var daysInMonth = DateTime.DaysInMonth(year, month);
@@ -94,19 +99,24 @@ namespace api.Services
             for (int day = 1; day <= daysInMonth; day++)
             {
                 var date = new DateOnly(year, month, day);
-
+                _logger.LogInformation("Datum i loopen: {date}", date);
                 var timesDto = new AvailableTimesRequestDto
                 {
                     Date = date.ToString("yyyy-MM-dd"),
-                    TreatmentIds = ids
+                    TreatmentIds = ids,
+                    
                 };
+                _logger.LogInformation("Formaterat datum: {date}", timesDto.Date);
                 var times = await GetAvailableTimesAsync(timesDto);
-
+                
+                _logger.LogInformation("Antal tider: {Count()}", times.Count());
                 if (times.Any())
                 {
                     availableDates.Add(timesDto.Date);
                 }
-            } 
+            }
+        
+            _logger.LogInformation("Antal datum: {Count}", availableDates.Count);
             return availableDates;
         }
     }

@@ -9,7 +9,7 @@ namespace api.Dtos.Booking
     {
         public int Year { get; set; }
         public int Month { get; set; }
-        public List<int> TreatmentIds { get; set; } = new();
+        public List<int> Ids { get; set; } = new();
 
     }
 }
