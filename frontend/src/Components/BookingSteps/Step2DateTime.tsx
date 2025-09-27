@@ -3,6 +3,7 @@ import "./Steps.css";
 import "./Calendar.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { formatDate } from "../../lib/date";
 
 type Props = {
   onNext: () => void;
@@ -15,6 +16,7 @@ type Props = {
   times: string[];
   chosenTime: string | null; //För design av vald knapp
   availableDays: string[];
+  isLoading: boolean;
 };
 
 const Step2DateTime = ({
@@ -28,15 +30,31 @@ const Step2DateTime = ({
   times,
   chosenTime,
   availableDays,
+  isLoading,
 }: Props) => {
+
+  
 
   //Flytta till util mappen?
   const tileDisabled = ({ date }: { date: Date }) => {
+    
+    //Vet inte om detta behövs
+    if (isLoading) {
+    return (
+      date.getDay() === 0 || date.getDay() === 6 
+    );
+  }
+    const dateStart = new Date(date);
+    dateStart.setHours(0,0,0,0);
+
+    const todayStart = new Date();
+    todayStart.setHours(0,0,0,0);
+
     return (
       date.getDay() === 0 ||
       date.getDay() === 6 ||
-      date < new Date() ||
-      !availableDays.includes(date.toISOString().slice(0, 10))
+      dateStart < todayStart ||
+      !availableDays.includes(formatDate(date))
     );
   };
 

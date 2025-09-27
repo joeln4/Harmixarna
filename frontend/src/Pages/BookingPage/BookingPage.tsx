@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo} from "react";
 import "./BookingPage.css";
 import Step1Treatments from "../../Components/BookingSteps/Step1Treatments";
 import Step2DateTime from "../../Components/BookingSteps/Step2DateTime";
@@ -34,6 +34,7 @@ function BookingPage() {
   const [times, setTimes] = useState<string[]>([]); // Alla tider som hämtas från api
   const [chosenTime, setChosenTime] = useState<string | null>(null); // Den valda tiden
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -61,6 +62,8 @@ function BookingPage() {
   const nextStep = () => {
     if (step === 0) {
       setStep(1);
+    
+      console.log("treatments:", selectedTreatments.map((t) => t.id));
       fetchMonthAvailability(activeStartDate, selectedTreatments.map((t) => t.id)) //Laddar kalendern så den är redo när den visas
     } else if (step === 1) {
       setStep(2);
@@ -111,9 +114,10 @@ function BookingPage() {
   };
 
   async function fetchMonthAvailability(startDate: Date, treatmentIds: number[]) {
-
+    console.log("startDate:", startDate);
     const year = startDate.getFullYear();
     const month = startDate.getMonth() + 1;
+    setIsLoading(true);
     try {
       const res = await FetchAvailableDays({ year: year, month: month, ids: treatmentIds});
       setAvailableDays(res);
@@ -123,6 +127,8 @@ function BookingPage() {
     } catch (err: any) {
       console.log("fel vid hämnting av tider:", err);
       setError(err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -199,6 +205,7 @@ function BookingPage() {
           times={times}
           availableDays={availableDays}
           chosenTime={chosenTime}
+          isLoading={isLoading}
         />
       </div>
     );
