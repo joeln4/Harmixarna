@@ -1,5 +1,6 @@
 import React from "react";
 import "./Steps.css";
+import "./Step2.css"
 import "./Calendar.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -12,7 +13,7 @@ type Props = {
   activeStartDate: Date;
   onActiveStartDateChange: (value: Date) => void;
   onTime: (time: string) => void;
-  dateValue: Date;
+  dateValue: Date | null;
   times: string[];
   chosenTime: string | null; //För design av vald knapp
   availableDays: string[];
@@ -66,6 +67,7 @@ const Step2DateTime = ({
       <Calendar
         className="react-calendar"
         onChange={(v) => onDateChange(v as Date)}
+        activeStartDate={activeStartDate} 
         onActiveStartDateChange={({ activeStartDate }) => {
           if (activeStartDate) onActiveStartDateChange(activeStartDate);
         }}
@@ -73,12 +75,13 @@ const Step2DateTime = ({
         selectRange={false}
         tileDisabled={tileDisabled}
       />
-      <div className="times-div">
+      <div className="times-container">
         {times.length > 0 ? (
           times.map((t) => (
-            <button onClick={() => onTime(t)} key={t}>
-              {t}
-            </button>
+            <span key={t} className="time-item">
+              <input type="radio" className="input-times" id={`time-${t}`} name="time" onClick={() => onTime(t)} key={t}/>
+              <label htmlFor={`time-${t}`} className="lbl-times">{t}</label>
+            </span>
           ))
         ) : (
           <p>Inga lediga tider.</p>

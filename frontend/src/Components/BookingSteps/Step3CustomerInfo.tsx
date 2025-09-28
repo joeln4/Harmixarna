@@ -11,7 +11,7 @@ type Props = {
   onPrev: () => void;
   onSubmitCustomer: (data: FormFields) => void;
   treatments: TreatmentInterface[];
-  date: Date;
+  date: Date | null;
   time: string | null;
 };
 

@@ -28,7 +28,7 @@ function BookingPage() {
   const [selectedTreatments, setSelectedTreatments] = useState<
     TreatmentInterface[]
   >([]); // Alla behandlingar som användaren har valt (den temporära listan)
-  const [date, setDate] = useState<Date>(new Date()); // Datumet som väljs i kalendern
+  const [date, setDate] = useState<Date | null>(null); // Datumet som väljs i kalendern
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date()); // Det första datumet på den laddade sidan för att få fram år och månad.
   const [availableDays, setAvailableDays] = useState<string[]>([]); //Listan med alla tillgängliga dagar för månaden, använd för att disablea
   const [times, setTimes] = useState<string[]>([]); // Alla tider som hämtas från api
@@ -60,11 +60,9 @@ function BookingPage() {
 
   // Gå vidare till nästa steg (endast om man är på steg 0 eller 1)
   const nextStep = () => {
-    if (step === 0) {
+    if (step === 0) { 
+      fetchMonthAvailability(activeStartDate, selectedTreatments.map((t) => t.id)); //Laddar kalendern så den är redo när den visas
       setStep(1);
-    
-      console.log("treatments:", selectedTreatments.map((t) => t.id));
-      fetchMonthAvailability(activeStartDate, selectedTreatments.map((t) => t.id)) //Laddar kalendern så den är redo när den visas
     } else if (step === 1) {
       setStep(2);
     }
@@ -74,18 +72,18 @@ function BookingPage() {
   const prevStep = () => {
     if (step === 1) {
       setTimes([]);
+      setDate(null);
       setChosenTime(null);
       setActiveStartDate(new Date());
+    } else if (step === 2){
+      setChosenTime(null);
     }
-
-    if (step === 1 || step === 2) {
       setStep(step - 1);
-    }
   };
 
   const handleDateChange = async (date: Date) => {
     const ids = selectedTreatments.map((t) => t.id);
-
+    
     const dateString = formatDate(date);
     console.log("Valt datumvärde:", dateString);
 
