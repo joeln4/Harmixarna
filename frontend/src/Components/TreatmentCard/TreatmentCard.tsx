@@ -22,7 +22,6 @@ const TreatmentCard = ({treatment, isSelected, onAdd, onRemove}: Props) => {
           <span className="tc-duration">{treatment.duration}</span>
           <span className="tc-price">{treatment.price}</span>
         </div>
-        <p className="tc-description">{treatment.description}</p>
       </div>
       
       <div className="tc-btn-cont">

@@ -2,6 +2,7 @@ import React from "react";
 import TreatmentCard from "../TreatmentCard/TreatmentCard";
 import "./TreatmentCardList.css";
 import { TreatmentInterface } from "../../types/Treatment.types";
+import "../../Components/BookingSteps/Step1.css"
 
 interface Props {
   treatments: TreatmentInterface[];           // Lista av behandlingar att visa, skickas från föräldern Step1Treatments.
@@ -10,13 +11,14 @@ interface Props {
   onRemove: (id: string | number) => void;    // Callback när en behandling tas bort från temporär lista
   error?: string | null;                      // returnerar felmeddelande om något gått snett eller null
   isLoading: boolean;                           // Om listan laddar data just nu
+  children?: React.ReactNode;
 };
 
 /**
  * TreatmentCardList – Visar en lista med behandlingar.
  * Hanterar också loading-state, felmeddelanden och tom lista.
  */
-const TreatmentCardList = ({treatments, selectedIds, onAdd, onRemove, error, isLoading } : Props) => {
+const TreatmentCardList = ({treatments, selectedIds, onAdd, onRemove, error, isLoading, children} : Props) => {
   return (
     <div className="treatment-card-list">
 
@@ -33,6 +35,7 @@ const TreatmentCardList = ({treatments, selectedIds, onAdd, onRemove, error, isL
         onAdd={() => onAdd(t)}
         onRemove={() => onRemove(t.id)}
         />)) : <p>Inga behandlingar hittades</p>) }
+        {children}
     </div>
   );
 };
