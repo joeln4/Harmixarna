@@ -39,34 +39,35 @@ const Step2DateTime = ({
   return (
     <div className="step-content">
       <h1>Välj datum och tid</h1>
-      <Calendar
-        className="react-calendar"
-        onChange={(v) => onDateChange(v as Date)}
-        activeStartDate={activeStartDate}
-        onActiveStartDateChange={({ activeStartDate }) => {
-          if (activeStartDate) onActiveStartDateChange(activeStartDate);
-        }}
-        value={dateValue}
-        selectRange={false}
-        tileDisabled={tileDisabled}
-      />
-      <div className="times-container">
-        {times.map((t) => (
-          <span key={t} className="time-item">
-            <input
-              type="radio"
-              className="input-times"
-              id={`time-${t}`}
-              name="time"
-              onClick={() => onTime(t)}
-              key={t}
-            />
-            <label htmlFor={`time-${t}`} className="lbl-times">
-              {t}
-            </label>
-          </span>
-        ))}
-      </div>
+      <div className="datetime-content">
+        <Calendar
+          className="react-calendar"
+          onChange={(v) => onDateChange(v as Date)}
+          activeStartDate={activeStartDate}
+          onActiveStartDateChange={({ activeStartDate }) => {
+            if (activeStartDate) onActiveStartDateChange(activeStartDate);
+          }}
+          value={dateValue}
+          selectRange={false}
+          tileDisabled={tileDisabled}
+        />
+        <div className="times-container">
+          {times.map((t) => (
+            <span key={t} className="time-item">
+              <input
+                type="radio"
+                className="input-times"
+                id={`time-${t}`}
+                name="time"
+                onClick={() => onTime(t)}
+                key={t}
+              />
+              <label htmlFor={`time-${t}`} className="lbl-times">
+                {t}
+              </label>
+            </span>
+          ))}
+        </div>
       <div className="step-btn-container">
         <button className="btn-prev" onClick={onPrev}>
           Tillbaka
@@ -74,6 +75,7 @@ const Step2DateTime = ({
         <button className="btn-next" onClick={onNext} disabled={!chosenTime}>
           Nästa
         </button>
+      </div>
       </div>
     </div>
   );

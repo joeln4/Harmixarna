@@ -63,7 +63,7 @@ namespace api.Services
             var slotStart = startOfDay;
 
             //Steg som kollar om ledig plats finns var 15e minut på dagen för att det är den kortaste behandlingen
-            TimeSpan slotStep = TimeSpan.FromMinutes(15);
+            TimeSpan slotStep = TimeSpan.FromMinutes(60);
 
             var availableTimes = new List<string>();
             var lastStart = endOfDay - totalDuration;
