@@ -1,10 +1,10 @@
 import React from "react";
 import "./Steps.css";
-import "./Step2.css"
+import "./Step2.css";
 import "./Calendar.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { formatDate } from "../../lib/date";
+import { isTileDisabled, formatDate } from "../../lib/date";
 
 type Props = {
   onNext: () => void;
@@ -33,33 +33,8 @@ const Step2DateTime = ({
   availableDays,
   isLoading,
 }: Props) => {
-
-  
-
-  //Flytta till util mappen?
-  const tileDisabled = ({ date }: { date: Date }) => {
-    
-    //Vet inte om detta behövs
-    if (isLoading) {
-    return (
-      date.getDay() === 0 || date.getDay() === 6 
-    );
-  }
-
-    //För att inte krångla med tidzoner, kanske inte nödvändigt
-    const dateStart = new Date(date);
-    dateStart.setHours(0,0,0,0);
-
-    const todayStart = new Date();
-    todayStart.setHours(0,0,0,0);
-
-    return (
-      date.getDay() === 0 ||
-      date.getDay() === 6 ||
-      dateStart < todayStart ||
-      !availableDays.includes(formatDate(date))
-    );
-  };
+  const tileDisabled = ({ date }: { date: Date }) =>
+    isTileDisabled(formatDate(date), availableDays, isLoading);
 
   return (
     <div className="step-content">
@@ -67,7 +42,7 @@ const Step2DateTime = ({
       <Calendar
         className="react-calendar"
         onChange={(v) => onDateChange(v as Date)}
-        activeStartDate={activeStartDate} 
+        activeStartDate={activeStartDate}
         onActiveStartDateChange={({ activeStartDate }) => {
           if (activeStartDate) onActiveStartDateChange(activeStartDate);
         }}
@@ -76,16 +51,21 @@ const Step2DateTime = ({
         tileDisabled={tileDisabled}
       />
       <div className="times-container">
-        {times.length > 0 ? (
-          times.map((t) => (
-            <span key={t} className="time-item">
-              <input type="radio" className="input-times" id={`time-${t}`} name="time" onClick={() => onTime(t)} key={t}/>
-              <label htmlFor={`time-${t}`} className="lbl-times">{t}</label>
-            </span>
-          ))
-        ) : (
-          <p>Inga lediga tider.</p>
-        )}
+        {times.map((t) => (
+          <span key={t} className="time-item">
+            <input
+              type="radio"
+              className="input-times"
+              id={`time-${t}`}
+              name="time"
+              onClick={() => onTime(t)}
+              key={t}
+            />
+            <label htmlFor={`time-${t}`} className="lbl-times">
+              {t}
+            </label>
+          </span>
+        ))}
       </div>
       <div className="step-btn-container">
         <button className="btn-prev" onClick={onPrev}>
