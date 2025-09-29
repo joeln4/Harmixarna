@@ -25,7 +25,7 @@ const TreatmentCard = ({treatment, isSelected, onAdd, onRemove}: Props) => {
       </div>
       
       <div className="tc-btn-cont">
-        <span className="selected-text">{isSelected ? "Tillagd \u2713" : ""}</span>
+        <span className={`selected-text ${isSelected ? "is-shown" : ""}`}>Tillagd ✓</span>
         <button className={isSelected ? "tc-btn-remove" : "tc-btn-add"} onClick={isSelected ? onRemove : onAdd}>
           {isSelected ? "Ta bort" : "Lägg Till"}
         </button>
