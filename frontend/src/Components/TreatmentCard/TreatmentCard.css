@@ -1,19 +1,20 @@
 .treatment-card {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  box-shadow: 1px 1px 4px rgb(180, 180, 180);
-  padding: 1rem 2rem;
-  width: 100%;
-  column-gap: 1rem;
+    box-shadow: 1px 1px 4px rgb(180, 180, 180);
+    padding: 1rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    min-height: 86px;
+}
+.tc-btn-cont {
+    display: flex;
+    align-items: center;
 }
 
-.tc-btn-cont {
-    display: grid;
-    grid-template-columns: 10ch 6rem;
-    align-items: center;
-    justify-items: end;
+.tc-content {
+    min-width: none;
+    align-self: center;
 }
+
 .tc-title {
   font-weight: bold;
   text-transform: uppercase;
@@ -25,7 +26,6 @@
   padding: 8px 10px;
   border-style: none;
   color: white;
-  margin-left: 2rem;
 }
 
 .tc-btn-add {
@@ -35,11 +35,12 @@
   margin-left: 10px;
   background-color: rgb(221, 53, 53);
 }
+
 .selected-text {
     display: inline-block;
     visibility: hidden;
     color: rgb(13, 150, 13);
-    min-width: 10ch;
+    min-width: 12ch; 
 }
 .selected-text.is-shown {
     visibility: visible;
