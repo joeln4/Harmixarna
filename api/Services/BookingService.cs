@@ -50,12 +50,13 @@ namespace api.Services
             var totalTicks = durations.Sum(d => d.Ticks);
             var totalDuration = TimeSpan.FromTicks(totalTicks);
 
-            //Kollar om behandlingarnas totaltid är längre än öppettiden
+            //Kollar om behandlingarnas totaltid är längre än öppettiden och om datumet är passerat
             if (totalDuration > (endOfDay - startOfDay) || dateValue < DateOnly.FromDateTime(DateTime.Now))
             {
                 return [];
             }
 
+            //Kollar om datumet är idag och sätter starten på dagen till nu för att inte ta med passerade tider
             if (dateValue == DateOnly.FromDateTime(DateTime.Now))
             {
                 var now = DateTime.Now;
