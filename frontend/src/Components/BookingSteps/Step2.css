@@ -1,5 +1,6 @@
 .datetime-content {
   display: grid;
+  grid-template-rows: 320px auto;
   grid-template-columns: minmax(350px, 350px) minmax(300px, 335px);
   column-gap: 2rem;
   align-items: start;

@@ -23,13 +23,13 @@
 
 .tc-btn-add, .tc-btn-remove {
   min-width: 74px;
-  padding: 8px 10px;
+  padding: 0.6rem 0.75rem;
   border-style: none;
   color: white;
 }
 
 .tc-btn-add {
-  background-color: rgb(70, 70, 245);
+  background-color: rgb(58, 58, 58);
 }
 .tc-btn-remove {
   margin-left: 10px;

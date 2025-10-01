@@ -42,6 +42,12 @@ const Step2DateTime = ({
       <div className="datetime-content">
         <Calendar
           className="react-calendar"
+          tileClassName={({date, view}) => {
+            if( view === "month" && availableDays.includes(date.toISOString().split("T")[0])) {
+              return "available-day";
+            }
+            return null;
+          }}
           onChange={(v) => onDateChange(v as Date)}
           activeStartDate={activeStartDate}
           onActiveStartDateChange={({ activeStartDate }) => {
