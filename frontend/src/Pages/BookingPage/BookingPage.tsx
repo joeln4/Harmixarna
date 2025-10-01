@@ -61,7 +61,9 @@ function BookingPage() {
   // Gå vidare till nästa steg (endast om man är på steg 0 eller 1)
   const nextStep = () => {
     if (step === 0) { 
-      fetchMonthAvailability(activeStartDate, selectedTreatments.map((t) => t.id)); //Laddar kalendern så den är redo när den visas
+      const ids = selectedTreatments.map((t) => t.id);
+      handleDateChange(new Date());
+      fetchMonthAvailability(activeStartDate, ids); //Laddar kalendern så den är redo när den visas
       setStep(1);
     } else if (step === 1) {
       setStep(2);

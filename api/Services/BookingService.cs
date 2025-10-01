@@ -39,6 +39,7 @@ namespace api.Services
                 return [];
             }
 
+
             //Sätter intervall för dagen för att kunna hämta bokningar satta samma dag
             var startOfDay = dateValue.ToDateTime(openingTime);
             var endOfDay = dateValue.ToDateTime(closingTime);
@@ -50,9 +51,18 @@ namespace api.Services
             var totalDuration = TimeSpan.FromTicks(totalTicks);
 
             //Kollar om behandlingarnas totaltid är längre än öppettiden
-            if (totalDuration > (endOfDay - startOfDay))
+            if (totalDuration > (endOfDay - startOfDay) || dateValue < DateOnly.FromDateTime(DateTime.Now))
             {
                 return [];
+            }
+
+            if (dateValue == DateOnly.FromDateTime(DateTime.Now))
+            {
+                var now = DateTime.Now;
+                if (startOfDay < now)
+                {
+                    startOfDay = now;
+                }
             }
 
             //Hämtar bokningar som är på valda datumet
