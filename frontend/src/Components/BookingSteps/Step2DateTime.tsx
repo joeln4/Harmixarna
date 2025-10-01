@@ -42,8 +42,11 @@ const Step2DateTime = ({
       <div className="datetime-content">
         <Calendar
           className="react-calendar"
-          tileClassName={({date, view}) => {
-            if( view === "month" && availableDays.includes(date.toISOString().split("T")[0])) {
+          tileClassName={({ date, view }) => {
+            if (
+              view === "month" &&
+              availableDays.includes(date.toISOString().split("T")[0])
+            ) {
               return "available-day";
             }
             return null;
@@ -57,31 +60,36 @@ const Step2DateTime = ({
           selectRange={false}
           tileDisabled={tileDisabled}
         />
-        <div className="times-container">
-          {times.map((t) => (
-            <span key={t} className="time-item">
-              <input
-                type="radio"
-                className="input-times"
-                id={`time-${t}`}
-                name="time"
-                onClick={() => onTime(t)}
-                key={t}
-              />
-              <label htmlFor={`time-${t}`} className="lbl-times">
-                {t}
-              </label>
-            </span>
-          ))}
+        {isLoading ? (
+          <div>Laddar lediga tider...</div>
+        ) : times.length > 0 ? (
+          <div className="times-container">
+            {times.map((t) => (
+              <span key={t} className="time-item">
+                <input
+                  type="radio"
+                  className="input-times"
+                  id={`time-${t}`}
+                  name="time"
+                  onClick={() => onTime(t)}
+                />
+                <label htmlFor={`time-${t}`} className="lbl-times">
+                  {t}
+                </label>
+              </span>
+            ))}
+          </div>
+        ) : (
+          <div>Inga lediga tider idag.</div>
+        )}
+        <div className="step-btn-container">
+          <button className="btn-prev" onClick={onPrev}>
+            Tillbaka
+          </button>
+          <button className="btn-next" onClick={onNext} disabled={!chosenTime}>
+            Nästa
+          </button>
         </div>
-      <div className="step-btn-container">
-        <button className="btn-prev" onClick={onPrev}>
-          Tillbaka
-        </button>
-        <button className="btn-next" onClick={onNext} disabled={!chosenTime}>
-          Nästa
-        </button>
-      </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useMemo} from "react";
+import React, { useState, useMemo } from "react";
 import "./BookingPage.css";
 import Step1Treatments from "../../Components/BookingSteps/Step1Treatments";
 import Step2DateTime from "../../Components/BookingSteps/Step2DateTime";
@@ -37,6 +37,8 @@ function BookingPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+
+
 
   // Skapar en Set med valda id:n för enkel kontroll om en behandling är vald
   // useMemo: skapa Set av valda id:n bara när selectedTreatments ändras,
@@ -93,6 +95,7 @@ function BookingPage() {
     setTimes([]);
     setChosenTime(null);
     setError(null);
+    setIsLoading(true);
 
     try {
       const res = await FetchAvailableTimes(dateString, ids); // Id på behandlingar för att räkna ut duration i backend
@@ -105,6 +108,8 @@ function BookingPage() {
       setError(err);
       setTimes([]);
       setChosenTime(null);
+    } finally {
+      setIsLoading(false);
     }
   };
 
