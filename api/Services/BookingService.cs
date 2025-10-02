@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Booking;
 using api.Interfaces;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Services
@@ -56,16 +57,6 @@ namespace api.Services
                 return [];
             }
 
-            //Kollar om datumet är idag och sätter starten på dagen till nu för att inte ta med passerade tider
-            if (dateValue == DateOnly.FromDateTime(DateTime.Now))
-            {
-                var now = DateTime.Now;
-                if (startOfDay < now)
-                {
-                    startOfDay = now;
-                }
-            }
-
             //Hämtar bokningar som är på valda datumet
             var bookingsThatDay = await _context.Bookings.AsNoTracking()
             .Where(b => b.StartTime < endOfDay && b.EndTime > startOfDay)
@@ -85,12 +76,17 @@ namespace api.Services
 
                 bool overlaps = bookingsThatDay.Any(b => slotStart < b.EndTime && slotEnd > b.StartTime);
 
+                if (slotStart < DateTime.Now)
+                {
+                    continue;
+                }
+
                 if (!overlaps)
                 {
                     availableTimes.Add(slotStart.ToString("HH:mm"));
                 }
             }
-            
+
 
             return availableTimes;
         }
@@ -115,18 +111,18 @@ namespace api.Services
                 {
                     Date = date.ToString("yyyy-MM-dd"),
                     TreatmentIds = ids,
-                    
+
                 };
                 _logger.LogInformation("Formaterat datum: {date}", timesDto.Date);
                 var times = await GetAvailableTimesAsync(timesDto);
-                
+
                 _logger.LogInformation("Antal tider: {Count()}", times.Count());
                 if (times.Any())
                 {
                     availableDates.Add(timesDto.Date);
                 }
             }
-        
+
             _logger.LogInformation("Antal datum: {Count}", availableDates.Count);
             return availableDates;
         }

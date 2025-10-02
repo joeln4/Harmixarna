@@ -61,7 +61,7 @@ const Step2DateTime = ({
           tileDisabled={tileDisabled}
         />
         {isLoading ? (
-          <div>Laddar lediga tider...</div>
+          <div>Hämtar lediga tider...</div>
         ) : times.length > 0 ? (
           <div className="times-container">
             {times.map((t) => (
