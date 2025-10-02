@@ -1,18 +1,19 @@
-.summary-grid {
+
+.confirmation-grid {
     display: grid;
     grid-template-columns: 120px 1fr;
     row-gap: 0.5rem;
     column-gap: 1rem;
 }
 
-.summary-grid dt {
+.confirmation-grid dt {
     flex: 0 0 150px;
 }
 
-.summary-grid ul {
+.confirmation-grid ul {
     list-style: none;
 }
 
-.summary-grid dd, ul {
+.confirmation-grid dd, ul {
     padding: 0;
 }

@@ -1,0 +1,41 @@
+.summary-container {
+  display: block;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgb(125, 125, 125);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  row-gap: 0.5rem;
+  column-gap: 0;
+}
+
+.summary-grid dt {
+  font-weight: bold;
+  padding-bottom: 0.25rem;
+}
+
+.summary-grid ul {
+  list-style: none;
+}
+
+.summary-grid ul {
+  padding: 0;
+  margin: 0;
+}
+
+.summary-grid dt, .summary-grid dd {
+    border-bottom: 1px solid rgb(125, 125, 125);
+}
+
+.summary-grid dd {
+    margin: 0;
+    padding: 5px;
+    text-indent: 5rem;
+}
+
+.summary-grid dt:last-of-type, .summary-grid dd:last-of-type {
+    border-bottom: none;
+}

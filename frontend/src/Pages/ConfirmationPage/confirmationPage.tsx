@@ -3,6 +3,7 @@ import { BookingDto } from "../../types/booking.types";
 import fetchBookingById from "../../api/fetchBookingById";
 import { useParams } from "react-router-dom";
 import "./ConfirmationPage.css";
+import { formatDateToSE } from "../../lib/date";
 
 const ConfirmationPage = () => {
 
@@ -53,12 +54,12 @@ const ConfirmationPage = () => {
         <h1>Något gick fel! Vänligen försök igen.</h1>
       ) : (
         <div>
-          <dl className="summary-grid">
+          <dl className="confirmation-grid">
             <dt>Bokningsnummer:</dt>
             <dd>{booking?.id}</dd>
 
             <dt>Datum:</dt>
-            <dd>{booking?.startTime}</dd>
+            <dd>{booking?.startTime ? formatDateToSE(new Date(booking?.startTime)) : ""}</dd>
 
             <dt>Meddelande: </dt>
             <dd>{booking?.message ?? "-"}</dd>

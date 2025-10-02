@@ -1,5 +1,6 @@
 import React from "react";
 import "./Steps.css";
+import "./Step3.css";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,6 +47,35 @@ const Step3CustomerInfo = ({
   return (
     <div className="step-content">
       <h1>Fyll i uppgifter</h1>
+      <div className="summary-container">
+        <dl className="summary-grid">
+
+            <dt>Datum</dt>
+            <dd>
+              {formatDateToSE(date)}
+            </dd>
+
+            <dt>Tid</dt>
+            <dd>
+              {time}
+            </dd>
+
+            <dt>Pris</dt>
+            <dd>
+              {TotalTreatmentPrice(treatments)} kr
+            </dd>
+
+              <dt>Behandlingar</dt>
+            <dd>
+              <ul>
+                {treatments.map((t) => (
+                  <li key={t.id}>{t.type}</li>
+                ))}
+              </ul>
+            </dd>
+
+        </dl>
+      </div>
       <div className="form-container">
         <form noValidate className="customer-form" onSubmit={handleSubmit(onSubmit)}>
           <input {...register("name")} type="text" placeholder="Namn" />
@@ -86,35 +116,6 @@ const Step3CustomerInfo = ({
         >
           {isSubmitting ? "Laddar..." : "Boka"}
         </button>
-      </div>
-      <div className="summary-container">
-        <dl className="summary-grid">
-
-            <dt>Datum:</dt>
-            <dd>
-              {formatDateToSE(date)}
-            </dd>
-
-            <dt>Tid:</dt>
-            <dd>
-              {time}
-            </dd>
-
-            <dt>Pris:</dt>
-            <dd>
-              {TotalTreatmentPrice(treatments)} kr
-            </dd>
-
-              <dt>Behandlingar:</dt>
-            <dd>
-              <ul>
-                {treatments.map((t) => (
-                  <li key={t.id}>{t.type}</li>
-                ))}
-              </ul>
-            </dd>
-
-        </dl>
       </div>
     </div>
   );
