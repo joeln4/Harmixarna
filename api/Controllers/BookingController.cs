@@ -76,6 +76,7 @@ namespace api.Controllers
             //Lägger på duration på startTime för att få fram endTime
             var endTime = startTime.Add(totalDuration);
 
+            var totalPrice = treatments.Sum(t => t.Price);
             //Tar bort alla blanksteg innan och efter. Vet ej om det behövs med tanke på zod validering
             var name = dto.Customer.Name.Trim();
             var email = dto.Customer.Email.Trim().ToLowerInvariant();
@@ -107,6 +108,7 @@ namespace api.Controllers
                 StartTime = startTime,
                 EndTime = endTime,
                 Message = message,
+                Price = totalPrice,
                 Customer = customer,
                 Treatments = treatments
             };

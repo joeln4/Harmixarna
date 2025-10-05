@@ -21,6 +21,7 @@ namespace api.Mappers
                 EndTime = bookingEntity.EndTime,
                 Status = bookingEntity.Status,
                 Message = bookingEntity.Message,
+                Price = bookingEntity.Price,
                 Treatments = bookingEntity.Treatments.Select(t => new TreatmentDto
                 {
                     Id = t.Id,

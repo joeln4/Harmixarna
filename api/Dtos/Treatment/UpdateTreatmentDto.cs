@@ -8,7 +8,7 @@ namespace api.Dtos.Treatment
     public class UpdateTreatmentDto
     {
         public required string Type { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         public string? Description { get; set; }
         public TimeSpan Duration { get; set; }
     }

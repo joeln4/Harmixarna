@@ -16,6 +16,7 @@ namespace api.Dtos.Booking
         public DateTime EndTime { get; set; }
         public BookingStatus Status { get; set; }
         public string? Message { get; set; }
+        public int Price { get; set; }
         public List<TreatmentDto> Treatments { get; set; } = new();
         public CustomerInfoDto Customer { get; set; } = default!;
 

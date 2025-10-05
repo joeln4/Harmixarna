@@ -40,6 +40,13 @@
     border-bottom: none;
 }
 
+.summary-grid li::after {
+    content: ",";
+}
+.summary-grid li:last-of-type::after {
+    content: none;
+}
+
 .form-container {
     background-color: rgb(250, 250, 250);
     box-shadow: 0 0 2px rgb(180, 180, 180);

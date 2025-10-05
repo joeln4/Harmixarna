@@ -12,6 +12,7 @@ namespace api.Dtos.Booking
         public string Time { get; set; } = default!; // ("HH:mm") är tiden som väljs i frontend. String, samma förklaring som ovan.
         public List<int> Treatments { get; set; } = new();
         public string? Message { get; set; }
+        public int Price { get; set; }
         public CustomerInfoDto Customer { get; set; } = default!; // Tar med det som behövs från kunden.
     };
 };

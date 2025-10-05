@@ -47,22 +47,20 @@ const ConfirmationPage = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="step-content">
       {isLoading ? (
         <h1>Skapar bokningsbekräftelse...</h1>
       ) : error ? (
         <h1>Något gick fel! Vänligen försök igen.</h1>
       ) : (
         <div>
+          <h1>Tack för din bokning!</h1>
           <dl className="confirmation-grid">
             <dt>Bokningsnummer:</dt>
             <dd>{booking?.id}</dd>
 
             <dt>Datum:</dt>
             <dd>{booking?.startTime ? formatDateToSE(new Date(booking?.startTime)) : ""}</dd>
-
-            <dt>Meddelande: </dt>
-            <dd>{booking?.message ?? "-"}</dd>
 
             <dt>Behandlingar:</dt>
             <dd>
@@ -72,6 +70,12 @@ const ConfirmationPage = () => {
                 ))}
               </ul>
             </dd>
+
+            <dt>Meddelande: </dt>
+            <dd>{booking?.message ?? "-"}</dd>
+
+            <dt>Pris</dt>
+            {/* <dd>{booking?.Price} kr</dd> */}
           </dl>
         </div>
       )}
