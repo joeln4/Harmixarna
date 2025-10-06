@@ -1,0 +1,47 @@
+#salon-pic {
+  background-image: url("../../../public/images/Salong2.jpeg");
+  background-size: cover;
+  height: calc(100vh - 77px);
+  display: flex;
+  justify-content: center;
+}
+
+#salon-pic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+  margin-top: 77px;
+}
+
+#salon-pic > * {
+  z-index: 1;
+}
+
+.start-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#hp-title {
+  color: white;
+  font-size: 60px;
+}
+
+.hp-btns {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+#book-btn,
+#contact-btn {
+  background-color: rgb(30, 30, 30);
+  color: white;
+  width: 130px;
+  height: 42px;
+  border-style: none;
+  border: 0.2px solid;
+}

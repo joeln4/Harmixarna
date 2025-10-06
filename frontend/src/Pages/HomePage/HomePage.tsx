@@ -1,11 +1,30 @@
-import React from 'react'
+import React from "react";
+import "./HomePage.css";
+import { useNavigate } from "react-router-dom";
 
-type Props = {}
+const HomePage = () => {
+  const navigate = useNavigate();
 
-const HomePage = (props: Props) => {
+  const handleBookingClick = () =>  {
+    navigate("/booking");
+  }
+
+  const handleContactClick = () => {
+    navigate("/Contact")
+  }
   return (
-    <div>HomePage</div>
-  )
-}
+    <div>
+      <section id="salon-pic">
+        <div className="start-content">
+          <h1 id="hp-title">Välkommen till Hårmixarna</h1>
+          <div className="hp-btns">
+            <button id="book-btn" onClick={handleBookingClick}>Boka nu</button>
+            <button id="contact-btn" onClick={handleContactClick}>Kontakta oss</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 
-export default HomePage
+export default HomePage;
