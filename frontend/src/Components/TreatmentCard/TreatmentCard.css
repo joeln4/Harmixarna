@@ -1,29 +1,36 @@
 .treatment-card {
-    box-shadow: 1px 1px 4px rgb(180, 180, 180);
-    padding: 1rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    min-height: 86px;
+  box-shadow: 1px 1px 4px rgb(180, 180, 180);
+  padding: 1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  min-height: 86px;
 }
 .tc-btn-cont {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+}
+
+.tc-btn-cont span {
+    text-align: end;
 }
 
 .tc-content {
-    min-width: none;
-    align-self: center;
+  min-width: none;
+  align-self: center;
 }
 
 .tc-title {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: start;
 }
 
-.tc-btn-add, .tc-btn-remove {
+.tc-btn-add,
+.tc-btn-remove {
   min-width: 74px;
   padding: 0.6rem 0.75rem;
+  margin-left: 10px;
   border-style: none;
   color: white;
 }
@@ -32,18 +39,17 @@
   background-color: rgb(58, 58, 58);
 }
 .tc-btn-remove {
-  margin-left: 10px;
   background-color: rgb(221, 53, 53);
 }
 
 .selected-text {
-    display: inline-block;
-    visibility: hidden;
-    color: rgb(13, 150, 13);
-    min-width: 12ch; 
+  display: inline-block;
+  visibility: hidden;
+  color: rgb(13, 150, 13);
+  min-width: 12ch;
 }
 .selected-text.is-shown {
-    visibility: visible;
+  visibility: visible;
 }
 
 .tc-duration::after {
@@ -51,5 +57,5 @@
 }
 
 .tc-price::after {
-    content: "kr";
+  content: "kr";
 }
