@@ -1,6 +1,7 @@
 import React from "react";
 import "./TreatmentCard.css";
 import {TreatmentInterface} from "../../types/Treatment.types";
+import { formatDuration } from "../../lib/Time";
 
 interface Props {
   treatment: TreatmentInterface;
@@ -19,7 +20,7 @@ const TreatmentCard = ({treatment, isSelected, onAdd, onRemove}: Props) => {
       <div className="tc-content">
         <p className="tc-title">{treatment.type}</p>
         <div className="tc-details">
-          <span className="tc-duration">{treatment.duration}</span>
+          <span className="tc-duration">{formatDuration(treatment.duration)}</span>
           <span className="tc-price">{treatment.price}</span>
         </div>
       </div>

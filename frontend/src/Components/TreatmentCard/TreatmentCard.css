@@ -52,10 +52,19 @@
   visibility: visible;
 }
 
+.tc-duration {
+    letter-spacing: -0.05rem;
+}
+
 .tc-duration::after {
   content: ", ";
 }
 
-.tc-price::after {
-  content: "kr";
+.tc-price {
+    margin-left: 0.2rem;
 }
+.tc-price::after {
+  content: " kr";
+}
+
+
