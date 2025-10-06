@@ -22,6 +22,8 @@ export const formatDateToSE = (d: Date | null) => {
     year: "numeric",
     month: "long",
     day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   }).format(d);
 
   return formatted;

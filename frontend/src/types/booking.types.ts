@@ -13,6 +13,7 @@ export type BookingDto = {
   startTime: string;
   endTime: string;
   message?: string | null;
+  price: number;
   customer: {
     id: number;
     name: string;
