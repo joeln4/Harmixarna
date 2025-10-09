@@ -7,19 +7,6 @@
   justify-content: center;
 }
 
-#salon-pic::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-  margin-top: 77px;
-}
-
-#salon-pic > * {
-  z-index: 1;
-}
-
 .start-content {
   display: flex;
   flex-direction: column;
@@ -40,7 +27,7 @@
 }
 
 #book-btn,
-#contact-btn {
+#contact-btn, #price-list-btn {
   background-color: rgb(30, 30, 30);
   color: white;
   width: 130px;
@@ -48,6 +35,39 @@
   border-style: none;
   border: 0.2px solid;
 }
+
+.second-content {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    gap: 1rem;
+    padding: 3rem;
+}
+
+.sc-column {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+
+}
+
+#price-list-info {
+    display: inline-block;  
+}
+
+#price-list-info h1 {
+    margin: 1rem 0;
+}
+
+#price-list-info p {
+    font-size: 20px;
+}
+
+#image-cont {
+    background-color: black;
+}
+
 
 @media (max-width: 880px) {
   #salon-pic {

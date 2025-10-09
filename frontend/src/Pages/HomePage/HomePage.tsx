@@ -23,6 +23,21 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <section id="hp-info">
+        <div className="second-content">
+          <div className="sc-column" id="price-list-info">
+            <h1>Hårmixarna</h1>
+            <p>Hos oss kan du boka allt från klippning till Bryn & Fransar</p>
+            <p>Mer text här för att göra det snyggare</p>
+            <div id="price-list-btn-cont">
+              <button id="price-list-btn">Gå till prislista</button>
+            </div>
+          </div>
+          <div className="sc-column" id="image-cont">
+
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
