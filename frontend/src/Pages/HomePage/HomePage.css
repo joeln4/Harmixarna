@@ -1,5 +1,5 @@
 #salon-pic {
-  background-image: url("../../../public/images/Salong.jpeg");
+  background-image: url("../../../public/images/Salong.jpg");
   background-size: cover;
   background-position: center top;
   height: calc(100vh - 77px);
@@ -27,47 +27,68 @@
 }
 
 #book-btn,
-#contact-btn, #price-list-btn {
+#contact-btn, #treatments-btn {
   background-color: rgb(30, 30, 30);
   color: white;
-  width: 130px;
-  height: 42px;
   border-style: none;
+  font-size: large;
+}
+
+#book-btn,
+#contact-btn {
+  width: 160px;
+  height: 55px;
   border: 0.2px solid;
 }
 
+#treatments-btn {
+    padding: 1.25rem 2.25rem;
+}
+
 .second-content {
-    display: flex;
-    flex-direction: row;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    gap: 1rem;
-    padding: 3rem;
+  display: flex;
+  flex-direction: row;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  gap: 5rem;
+  padding: 3rem;
+  align-items: stretch;
 }
 
 .sc-column {
-    flex: 1;
-    justify-content: center;
-    text-align: center;
+  flex: 1;
+  display: flex;
+  text-align: center;
+}
 
+#price-list-cont {
+  display: flex;
+  justify-content: flex-end;
 }
 
 #price-list-info {
-    display: inline-block;  
+  display: inline-block;
+  margin-top: 2rem;
+  max-width: 550px;
 }
 
 #price-list-info h1 {
-    margin: 1rem 0;
+  margin: 1rem 0;
+  font-size: 50px;
 }
 
 #price-list-info p {
-    font-size: 20px;
+  font-size: 25px;
 }
 
-#image-cont {
-    background-color: black;
+#second-image-cont img {
+  object-fit: cover;
+  box-shadow: 0 0 5px rgb(0, 0, 0);
 }
 
+#price-list-btn-cont {
+  margin-top: 2rem;
+}
 
 @media (max-width: 880px) {
   #salon-pic {
@@ -83,16 +104,15 @@
   }
 
   #hp-title {
-  font-size: 30px;
-}
+    font-size: 30px;
+  }
 
   #book-btn,
-#contact-btn {
-  width: 100px;
-  height: 35px;
-
-}
-.start-content {
-  margin-bottom: 10rem;
-}
+  #contact-btn {
+    width: 100px;
+    height: 35px;
+  }
+  .start-content {
+    margin-bottom: 10rem;
+  }
 }

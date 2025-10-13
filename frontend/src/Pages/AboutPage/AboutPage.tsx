@@ -1,10 +1,13 @@
 import React from 'react'
+import Footer from '../../Components/Footer/Footer'
 
 type Props = {}
 
 const AboutPage = (props: Props) => {
   return (
-    <div>About</div>
+    <div>About
+      <Footer />
+    </div>
   )
 }
 

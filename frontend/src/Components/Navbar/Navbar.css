@@ -1,11 +1,10 @@
 .nav {
-    background-color: rgb(30, 30, 30);
+    background-color: rgb(255, 255, 255);
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
-    padding: 1rem 1rem;
 }
 
 .site-title {
@@ -26,6 +25,12 @@
     display: flex;
     align-items: center;
     padding: .25rem;
+    color: black;
+}
+
+#nav-logo {
+    height: 50px;
+    margin-left: 1rem;
 }
 
 .nav li.active {

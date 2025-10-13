@@ -1,0 +1,10 @@
+.page-footer {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgb(211, 211, 211);
+}
+
+#logo-footer-cont img {
+  max-width: 300px;
+  margin: 3rem 0;
+}

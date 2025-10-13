@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="nav">
       <a href="/" className="site-title">
-        Hårmixarna
+        <img id="nav-logo" src="/images/Hårmixarna-logo.png" alt="logo"/>
       </a>
       <ul>
         <li>
