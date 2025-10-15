@@ -33,7 +33,8 @@ const Step1Treatments = ({ selectedIds, onAdd, onRemove, onNext }: Props) => {
 
   return (
     <div className="step-content">
-        <h1>Välj behandlingar</h1>
+      <h1>Välj behandlingar</h1>
+      <div className="inner-content">
         <TreatmentCardList
           treatments={treatments}
           selectedIds={selectedIds}
@@ -43,15 +44,16 @@ const Step1Treatments = ({ selectedIds, onAdd, onRemove, onNext }: Props) => {
           isLoading={isLoading}
         >
           <div className="list-footer">
-          <button
-            className="btn-next"
-            onClick={onNext}
-            disabled={selectedIds.size === 0}
-          >
-            Nästa
-          </button>
-      </div>
+            <button
+              className="btn-next"
+              onClick={onNext}
+              disabled={selectedIds.size === 0}
+            >
+              Nästa
+            </button>
+          </div>
         </TreatmentCardList>
+      </div>
     </div>
   );
 };

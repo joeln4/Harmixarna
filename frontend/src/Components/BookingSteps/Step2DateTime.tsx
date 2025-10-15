@@ -39,56 +39,62 @@ const Step2DateTime = ({
   return (
     <div className="step-content">
       <h1>Välj datum och tid</h1>
-      <div className="datetime-content">
-        <Calendar
-          className="react-calendar"
-          tileClassName={({ date, view }) => {
-            if (
-              view === "month" &&
-              availableDays.includes(date.toISOString().split("T")[0])
-            ) {
-              return "available-day";
-            }
-            return null;
-          }}
-          onChange={(v) => onDateChange(v as Date)}
-          activeStartDate={activeStartDate}
-          onActiveStartDateChange={({ activeStartDate }) => {
-            if (activeStartDate) onActiveStartDateChange(activeStartDate);
-          }}
-          value={dateValue}
-          selectRange={false}
-          tileDisabled={tileDisabled}
-        />
-        {isLoading ? (
-          <div>Hämtar lediga tider...</div>
-        ) : times.length > 0 ? (
-          <div className="times-container">
-            {times.map((t) => (
-              <span key={t} className="time-item">
-                <input
-                  type="radio"
-                  className="input-times"
-                  id={`time-${t}`}
-                  name="time"
-                  onClick={() => onTime(t)}
-                />
-                <label htmlFor={`time-${t}`} className="lbl-times">
-                  {t}
-                </label>
-              </span>
-            ))}
+      <div className="inner-content">
+        <div className="datetime-content">
+          <Calendar
+            className="react-calendar"
+            tileClassName={({ date, view }) => {
+              if (
+                view === "month" &&
+                availableDays.includes(date.toISOString().split("T")[0])
+              ) {
+                return "available-day";
+              }
+              return null;
+            }}
+            onChange={(v) => onDateChange(v as Date)}
+            activeStartDate={activeStartDate}
+            onActiveStartDateChange={({ activeStartDate }) => {
+              if (activeStartDate) onActiveStartDateChange(activeStartDate);
+            }}
+            value={dateValue}
+            selectRange={false}
+            tileDisabled={tileDisabled}
+          />
+          {isLoading ? (
+            <div>Hämtar lediga tider...</div>
+          ) : times.length > 0 ? (
+            <div className="times-container">
+              {times.map((t) => (
+                <span key={t} className="time-item">
+                  <input
+                    type="radio"
+                    className="input-times"
+                    id={`time-${t}`}
+                    name="time"
+                    onClick={() => onTime(t)}
+                  />
+                  <label htmlFor={`time-${t}`} className="lbl-times">
+                    {t}
+                  </label>
+                </span>
+              ))}
+            </div>
+          ) : (
+            <div>Inga lediga tider idag.</div>
+          )}
+          <div className="step-btn-container">
+            <button className="btn-prev" onClick={onPrev}>
+              Tillbaka
+            </button>
+            <button
+              className="btn-next"
+              onClick={onNext}
+              disabled={!chosenTime}
+            >
+              Nästa
+            </button>
           </div>
-        ) : (
-          <div>Inga lediga tider idag.</div>
-        )}
-        <div className="step-btn-container">
-          <button className="btn-prev" onClick={onPrev}>
-            Tillbaka
-          </button>
-          <button className="btn-next" onClick={onNext} disabled={!chosenTime}>
-            Nästa
-          </button>
         </div>
       </div>
     </div>

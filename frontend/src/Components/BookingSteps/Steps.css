@@ -2,6 +2,13 @@
   width: 800px;
 }
 
+.inner-content {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgb(125, 125, 125);
+  padding: 1rem 0;
+}
+
 .btn-next-container {
   display: flex;
   justify-content: center;
