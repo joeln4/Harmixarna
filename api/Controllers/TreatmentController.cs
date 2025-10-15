@@ -56,6 +56,21 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = treatmentEntity.Id }, treatmentEntity.ToTreatmentDto());
         }
 
+        [HttpPost("list")]
+        public async Task<IActionResult> CreateList(List<CreateTreatmentDto> createDtoList)
+        {
+            foreach (var createDto in createDtoList)
+            {
+                var treatmentEntity = createDto.ToTreatmentFromCreateDto();
+
+                await _context.Treatments.AddAsync(treatmentEntity);
+            }
+            
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, UpdateTreatmentDto updateDto)
         {
