@@ -9,7 +9,7 @@ using api.Models;
 
 namespace api.Dtos.Booking
 {
-    public class BookingDto //skall nog utökas eller ändras, lägga till summa för bokningen? Använd för att visa "kvittot" efter beställning är gjord
+    public class BookingDto
     {
         public int Id { get; set; }
         public DateTime StartTime { get; set; }

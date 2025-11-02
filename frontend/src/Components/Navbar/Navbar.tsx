@@ -21,7 +21,7 @@ export default function Navbar() {
             <a href="/contact">Kontakt</a>
           </li>
           <li>
-            <a href="/booking">Boka</a>
+            <a href="/booking" id="nav-booking-btn">Boka</a>
           </li>
         </ul>
       </div>

@@ -19,6 +19,7 @@ nav {
     text-decoration: none;
     color: black;
     margin-right: 1.5rem;
+    font-size: large;
 }
 
 #nav-menu a:hover {
@@ -38,6 +39,12 @@ nav {
 #nav-logo img {
     height: 50px;
     margin-left: 1rem;
+}
+
+#nav-booking-btn {
+    background-color: rgb(251, 135, 187);
+    padding: 0.75rem 2rem;
+    color: white !important;
 }
 
 @media (max-width: 680px) {  

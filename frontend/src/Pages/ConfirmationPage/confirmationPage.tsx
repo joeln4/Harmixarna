@@ -54,7 +54,7 @@ const ConfirmationPage = () => {
       ) : (
         <div className="conf-content">
           <h1 className="conf-title">Tack för din bokning!</h1>
-          <p>Vänligen kontrollera uppgifterna nedan.</p>
+          <p>Det kommer snart skickas en bekräftelse till den angivna e-postadressen.</p>
           <div className="conf-container">
             <h2>Bokningsuppgifter</h2>
             <dl className="conf-grid">

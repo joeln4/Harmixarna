@@ -8,6 +8,7 @@ using api.Dtos.Booking;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
@@ -20,11 +21,13 @@ namespace api.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IBookingService _bookingService;
+        private readonly EmailService _emailService;
 
-        public BookingController(ApplicationDbContext context, IBookingService bookingService)
+        public BookingController(ApplicationDbContext context, IBookingService bookingService, EmailService emailService)
         {
             _context = context;
             _bookingService = bookingService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -115,6 +118,8 @@ namespace api.Controllers
 
             await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
+
+            await _emailService.SendEmailConfirmationAsync(booking.Id);
 
             return CreatedAtAction(nameof(GetById), new { id = booking.Id }, booking.ToBookingDto());
         }

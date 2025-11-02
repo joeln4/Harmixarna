@@ -15,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<EmailService>();
 
 builder.Services.AddCors(options =>
 {

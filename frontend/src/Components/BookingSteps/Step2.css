@@ -61,5 +61,7 @@
 }
 
 .input-times:checked + .lbl-times {
-  background-color: rgb(175, 107, 239);
+  background-color: rgb(251, 135, 187);
+  color: white;
+  border-color: black;
 }

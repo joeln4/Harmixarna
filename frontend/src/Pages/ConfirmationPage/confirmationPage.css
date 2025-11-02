@@ -36,17 +36,19 @@
 }
 
 .conf-container {
-    background-color: rgb(250, 250, 250);
+    /* background-color: rgb(250, 250, 250); */
     box-shadow: 0 0 2px rgb(180, 180, 180);
-    max-width: 550px;
-    padding: 1rem 2rem 2rem 2rem 
-;  
+    max-width: 680px;
+    padding: 1rem 2rem 2rem 2rem;  
+    margin-bottom: 1rem;
+    border-color: rgb(141, 141, 141) !important;
+    border: 0.2px solid;
 }
 
 .conf-page {
     display: flex;
     justify-content: center;
-    margin-top: 5rem;
+    margin-top: 2rem;
 }
 
 .conf-page h1, p {
