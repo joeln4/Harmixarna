@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { BookingDto } from "../../types/booking.types";
 import fetchBookingById from "../../api/fetchBookingById";
 import { useParams } from "react-router-dom";
-import "./confirmationPage.css";
+import "./ConfirmationPage.css";
 import { formatDateToSE } from "../../lib/date";
 
 const ConfirmationPage = () => {

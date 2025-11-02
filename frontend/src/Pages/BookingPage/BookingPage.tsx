@@ -7,11 +7,11 @@ import Step3CustomerInfo, {
 } from "../../Components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types/Treatment.types";
 import { formatDate } from "../../lib/date";
-import FetchAvailableTimes from "../../api/FetchAvailableTimes";
+import fetchAvailableTimes from "../../api/fetchAvailableTimes";
 import { BookingRequestInfo } from "../../types/booking.types";
 import bookingRequest from "../../api/bookingRequest";
 import { useNavigate } from "react-router-dom";
-import FetchAvailableDays from "../../api/FetchAvailableDays";
+import fetchAvailableDays from "../../api/fetchAvailableDays";
 /**
  * BookingPage – Huvudsidan för bokningsflödet.
  * Hanterar de tre stegen:
@@ -98,7 +98,7 @@ function BookingPage() {
     setIsLoading(true);
 
     try {
-      const res = await FetchAvailableTimes(dateString, ids); // Id på behandlingar för att räkna ut duration i backend
+      const res = await fetchAvailableTimes(dateString, ids); // Id på behandlingar för att räkna ut duration i backend
       console.log("resultat från backend:", res);
       console.log("id:n:", ids);
       setTimes(res);
@@ -124,7 +124,7 @@ function BookingPage() {
     const month = startDate.getMonth() + 1;
     setIsLoading(true);
     try {
-      const res = await FetchAvailableDays({ year: year, month: month, ids: treatmentIds});
+      const res = await fetchAvailableDays({ year: year, month: month, ids: treatmentIds});
       setAvailableDays(res);
       console.log("dagar:", availableDays);
       console.log("år", year);
