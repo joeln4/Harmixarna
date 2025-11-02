@@ -4,7 +4,7 @@ import AboutPage from "../Pages/AboutPage/AboutPage";
 import BookingPage from "../Pages/BookingPage/BookingPage";
 import ContactPage from "../Pages/ContactPage/ContactPage";
 import HomePage from "../Pages/HomePage/HomePage";
-import ConfirmationPage from "../Pages/ConfirmationPage/ConfirmationPage";
+import ConfirmationPage from "../Pages/ConfirmationPage/confirmationPage";
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 
 export const router = createBrowserRouter([
