@@ -5,7 +5,7 @@ import Step2DateTime from "../../Components/BookingSteps/Step2DateTime";
 import Step3CustomerInfo, {
   FormFields,
 } from "../../Components/BookingSteps/Step3CustomerInfo";
-import { TreatmentInterface } from "../../types/Treatment.types";
+import { TreatmentInterface } from "../../types/treatment.types";
 import { formatDate } from "../../lib/date";
 import fetchAvailableTimes from "../../api/fetchAvailableTimes";
 import { BookingRequestInfo } from "../../types/booking.types";

@@ -1,6 +1,6 @@
 import React from "react";
 import "./TreatmentCard.css";
-import {TreatmentInterface} from "../../types/Treatment.types";
+import {TreatmentInterface} from "../../types/treatment.types";
 import { formatDuration } from "../../lib/time";
 
 interface Props {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { TreatmentInterface } from "../../types/Treatment.types";
+import { TreatmentInterface } from "../../types/treatment.types";
 import { useState } from "react";
 import TreatmentCardList from "../TreatmentCardList/TreatmentCardList";
 import "./Steps.css";
