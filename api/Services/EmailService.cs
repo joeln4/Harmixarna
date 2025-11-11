@@ -47,8 +47,8 @@ namespace api.Services
             var templateId = _config["SendGrid:TemplateId"];
 
             var client = new SendGridClient(apiKey);
-            var from_email = new EmailAddress("joel.norling@hotmail.com", "Hårmixarna");
-            var to_email = new EmailAddress("norlingjoel4@gmail.com", customerName);
+            var from_email = new EmailAddress($"{_config["SendGrid:FromEmail"]}", "Hårmixarna");
+            var to_email = new EmailAddress(customerEmail, customerName);
 
             var msg = new SendGridMessage
             {

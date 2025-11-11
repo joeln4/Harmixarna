@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 var sendGridApiKey = builder.Configuration["SendGrid:ApiKey"];
 var sendGridTemplateId = builder.Configuration["SendGrid:TemplateId"];
+var sendGridFromEmail = builder.Configuration["SendGrid:FromEmail"];
+var sendGridToEmail = builder.Configuration["SendGrid:ToEmail"];
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
