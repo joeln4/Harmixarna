@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,16 +9,16 @@ using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-//Template ID: d-198c8558ff334d988e96f7e8988f3689
-//Api key: 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
 namespace api.Services
 {
     public class EmailService
     {
         private readonly ApplicationDbContext _context;
-        public EmailService(ApplicationDbContext context)
+        private readonly IConfiguration _config;
+        public EmailService(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
         public async Task SendEmailConfirmationAsync(int id)
         {
@@ -42,8 +43,8 @@ namespace api.Services
                 phone = booking.Customer.Phone
             };
 
-            var apiKey = "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";
-            var templateId = "d-198c8558ff334d988e96f7e8988f3689";
+            var apiKey = _config["SendGrid:ApiKey"];
+            var templateId = _config["SendGrid:TemplateId"];
 
             var client = new SendGridClient(apiKey);
             var from_email = new EmailAddress("joel.norling@hotmail.com", "Hårmixarna");

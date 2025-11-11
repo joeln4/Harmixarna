@@ -362,7 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-
-# ConnectionString f�r dem med MacBook
+# ConnectionString for MacBook
 appsettings.json
-CVSiteGrupp18/appsettings.json
