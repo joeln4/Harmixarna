@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.Category;
 using api.Dtos.Treatment;
 using api.Models;
 using Humanizer;
@@ -18,8 +19,8 @@ namespace api.Mappers
                 Type = treatmentEntity.Type,
                 Price = treatmentEntity.Price,
                 Description = treatmentEntity.Description,
-                Duration = treatmentEntity.Duration
-
+                Duration = treatmentEntity.Duration,
+                CategoryId = treatmentEntity.CategoryId
             };
         }
 
@@ -30,7 +31,8 @@ namespace api.Mappers
                 Type = createDto.Type,
                 Price = createDto.Price,
                 Description = createDto.Description,
-                Duration = createDto.Duration
+                Duration = createDto.Duration,
+                CategoryId = createDto.CategoryId
             };
         }
 
@@ -40,6 +42,7 @@ namespace api.Mappers
             treatmentEntity.Price = updateDto.Price;
             treatmentEntity.Description = updateDto.Description;
             treatmentEntity.Duration = updateDto.Duration;
+            treatmentEntity.CategoryId = updateDto.CategoryId;
         }
     }
 }
