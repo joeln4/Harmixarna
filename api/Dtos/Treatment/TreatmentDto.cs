@@ -15,7 +15,7 @@ namespace api.Dtos.Treatment
         public int Price { get; set; }
         public string? Description { get; set; }
         public TimeSpan Duration { get; set; }
-        public int CategoryId {get; set;}
+        public int CategoryId {get; set;} // Antingen ha id eller ändra till namnet? Denna ska med för att kunna visa behandlingar i kategorier
 
     }
 }
