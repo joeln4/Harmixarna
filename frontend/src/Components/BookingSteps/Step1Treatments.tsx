@@ -3,6 +3,7 @@ import { TreatmentInterface } from "../../types/treatment.types";
 import { useState } from "react";
 import TreatmentCardList from "../TreatmentCardList/TreatmentCardList";
 import "./Steps.css";
+import FetchTreatments from "../../api/fetchTreatments";
 
 type Props = {
   selectedIds: Set<string | number>; // Id:n för valda behandlingar i den temporära listan
@@ -24,8 +25,7 @@ const Step1Treatments = ({ selectedIds, onAdd, onRemove, onNext }: Props) => {
 
   // Hämta behandlingar från API vid första render
   useEffect(() => {
-    fetch("http://localhost:5296/api/treatment")
-      .then((res) => res.json())
+    FetchTreatments()
       .then((data) => setTreatments(data))
       .catch((error) => setError(error.message))
       .finally(() => setIsLoading(false));
