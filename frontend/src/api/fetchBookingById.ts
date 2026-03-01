@@ -1,4 +1,4 @@
-import { BookingDto } from "../types/booking.types";
+import { BookingDto } from "../types-temp/booking.types";
 
 async function fetchBookingById(
   id: string | number,

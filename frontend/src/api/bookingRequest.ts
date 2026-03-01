@@ -1,4 +1,4 @@
-import { BookingDto, BookingRequestInfo } from '../types/booking.types';
+import { BookingDto, BookingRequestInfo } from '../types-temp/booking.types';
 
 async function bookingRequest (values: BookingRequestInfo): Promise<BookingDto>  {
 
