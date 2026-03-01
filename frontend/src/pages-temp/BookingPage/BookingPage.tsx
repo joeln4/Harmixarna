@@ -7,11 +7,11 @@ import Step3CustomerInfo, {
 } from "../../components-temps/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types-temp/treatment.temp.types";
 import { formatDate } from "../../utils/date";
-import fetchAvailableTimes from "../../api/fetchAvailableTimes";
+import fetchAvailableTimes from "../../api/fetchAvailableTimesTemp";
 import { BookingRequestInfo } from "../../types-temp/booking.types";
 import bookingRequest from "../../api/bookingRequest";
 import { useNavigate } from "react-router-dom";
-import fetchAvailableDays from "../../api/fetchAvailableDays";
+import fetchAvailableDays from "../../api/fetchAvailableDaysTemp";
 /**
  * BookingPage – Huvudsidan för bokningsflödet.
  * Hanterar de tre stegen:
