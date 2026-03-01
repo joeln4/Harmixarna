@@ -4,7 +4,7 @@ import "./Step3.css";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TreatmentInterface } from "../../types-temp/treatment.temp.types";
+import { TreatmentInterface } from "../../types/treatment.types";
 import { formatDateToSE } from "../../utils/date";
 import { TotalTreatmentPrice } from "../../utils/totalPrice";
 

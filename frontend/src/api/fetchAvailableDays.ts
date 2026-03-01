@@ -1,4 +1,4 @@
-async function fetchAvailableDaysTemp(data: {
+async function fetchAvailableDays(data: {
   year: number;
   month: number;
   ids: number[];
@@ -9,7 +9,7 @@ async function fetchAvailableDaysTemp(data: {
   params.set("month", String(data.month));
   data.ids.forEach((id) => params.append("ids", String(id)));
 
-  const res = await fetch(`http://localhost:5296/api/booking/dates?${params.toString()}`, {
+  const res = await fetch(`https://localhost:8000/api/booking/dates?${params.toString()}`, {
     method: "GET",
   });
 
@@ -22,4 +22,4 @@ async function fetchAvailableDaysTemp(data: {
 
 //Ska returna lista med yyyy-MM-dd
 
-export default fetchAvailableDaysTemp;
+export default fetchAvailableDays;

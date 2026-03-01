@@ -1,8 +1,8 @@
-import { BookingDto, BookingRequestInfo } from '../types-temp/booking.types';
+import { BookingDto, BookingRequestInfo } from '../types/booking.types';
 
 async function bookingRequest (values: BookingRequestInfo): Promise<BookingDto>  {
 
-  const res = await fetch("http://localhost:5296/api/booking/", {
+  const res = await fetch("https://localhost:8000/api/booking/", {
   method: "POST",
   headers: {"Content-Type": "application/json"},
   body: JSON.stringify(values),

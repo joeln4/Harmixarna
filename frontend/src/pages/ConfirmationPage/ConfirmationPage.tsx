@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BookingDto } from "../../types-temp/booking.types";
+import { BookingDto } from "../../types/booking.types";
 import fetchBookingById from "../../api/fetchBookingById";
 import { useParams } from "react-router-dom";
 import "./ConfirmationPage.css";

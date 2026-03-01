@@ -1,9 +1,9 @@
 //Metod som skickar datumet som klickats på till api och returnerar tillgängliga tider.
-async function fetchAvailableTimesTemp(
+async function fetchAvailableTimes(
   date: string,
   treatmentIds: number[]
 ): Promise<string[]> {
-  const res = await fetch("http://localhost:5296/api/booking/times", {
+  const res = await fetch("https://localhost:8000/api/booking/times", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ date: date, treatmentIds: treatmentIds }),
@@ -14,4 +14,4 @@ async function fetchAvailableTimesTemp(
   return res.json();
 }
 
-export default fetchAvailableTimesTemp;
+export default fetchAvailableTimes;

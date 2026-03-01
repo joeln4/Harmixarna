@@ -1,7 +1,7 @@
-import { TreatmentInterface } from "../types-temp/treatment.temp.types";
+import { TreatmentInterface } from "../types/treatment.types";
 
 async function fetchTreatments (): Promise<TreatmentInterface[]> {
-  const res =  await fetch("http://localhost:5296/api/treatment", {
+  const res =  await fetch("https://localhost:8000/api/treatment", {
     method: "GET",
   });
   if(!res.ok) {
