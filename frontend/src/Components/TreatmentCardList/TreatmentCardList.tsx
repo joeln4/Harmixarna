@@ -2,7 +2,7 @@ import React from "react";
 import TreatmentCard from "../TreatmentCard/TreatmentCard";
 import "./TreatmentCardList.css";
 import { TreatmentInterface } from "../../types/treatment.types";
-import "../../Components/BookingSteps/Step1.css"
+import "../BookingSteps/Step1.css"
 
 interface Props {
   treatments: TreatmentInterface[];           // Lista av behandlingar att visa, skickas från föräldern Step1Treatments.
