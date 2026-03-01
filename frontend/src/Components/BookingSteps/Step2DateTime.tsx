@@ -4,7 +4,7 @@ import "./Step2.css";
 import "./Calendar.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { isTileDisabled, formatDate } from "../../lib/date";
+import { isTileDisabled, formatDate } from "../../utils/date";
 
 type Props = {
   onNext: () => void;

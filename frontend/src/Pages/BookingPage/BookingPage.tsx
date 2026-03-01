@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from "react";
 import "./BookingPage.css";
-import Step1Treatments from "../../Components/BookingSteps/Step1Treatments";
-import Step2DateTime from "../../Components/BookingSteps/Step2DateTime";
+import Step1Treatments from "../../components/BookingSteps/Step1Treatments";
+import Step2DateTime from "../../components/BookingSteps/Step2DateTime";
 import Step3CustomerInfo, {
   FormFields,
-} from "../../Components/BookingSteps/Step3CustomerInfo";
+} from "../../components/BookingSteps/Step3CustomerInfo";
 import { TreatmentInterface } from "../../types/treatment.types";
-import { formatDate } from "../../lib/date";
+import { formatDate } from "../../utils/date";
 import fetchAvailableTimes from "../../api/fetchAvailableTimes";
 import { BookingRequestInfo } from "../../types/booking.types";
 import bookingRequest from "../../api/bookingRequest";

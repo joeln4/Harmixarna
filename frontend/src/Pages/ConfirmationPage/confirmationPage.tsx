@@ -3,7 +3,7 @@ import { BookingDto } from "../../types/booking.types";
 import fetchBookingById from "../../api/fetchBookingById";
 import { useParams } from "react-router-dom";
 import "./ConfirmationPage.css";
-import { formatDateToSE } from "../../lib/date";
+import { formatDateToSE } from "../../utils/date";
 
 const ConfirmationPage = () => {
   const [booking, setBooking] = useState<BookingDto | null>(null);

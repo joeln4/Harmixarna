@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -15,5 +16,8 @@ namespace api.Models
         public string? Description { get; set; }
         public TimeSpan Duration { get; set; } // Antal mintuer. Lägg till min efter när det visas
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; } = default!;
     }
 }

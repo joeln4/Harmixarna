@@ -1,4 +1,4 @@
-async function FetchAvailableDays(data: {
+async function fetchAvailableDays(data: {
   year: number;
   month: number;
   ids: number[];
@@ -22,4 +22,4 @@ async function FetchAvailableDays(data: {
 
 //Ska returna lista med yyyy-MM-dd
 
-export default FetchAvailableDays;
+export default fetchAvailableDays;

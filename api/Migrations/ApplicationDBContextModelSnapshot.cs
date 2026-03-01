@@ -70,6 +70,23 @@ namespace api.Migrations
                     b.ToTable("Bookings");
                 });
 
+            modelBuilder.Entity("api.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("api.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -108,6 +125,9 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -123,6 +143,8 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Treatments");
                 });
@@ -151,6 +173,22 @@ namespace api.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("api.Models.Treatment", b =>
+                {
+                    b.HasOne("api.Models.Category", "Category")
+                        .WithMany("Treatments")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("api.Models.Category", b =>
+                {
+                    b.Navigation("Treatments");
                 });
 
             modelBuilder.Entity("api.Models.Customer", b =>

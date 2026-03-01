@@ -6,11 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Category : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
@@ -37,11 +50,18 @@ namespace api.Migrations
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", precision: 18, scale: 2, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Duration = table.Column<TimeSpan>(type: "time", nullable: false)
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Treatments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Treatments_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,6 +121,11 @@ namespace api.Migrations
                 name: "IX_BookingTreatment_TreatmentsId",
                 table: "BookingTreatment",
                 column: "TreatmentsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Treatments_CategoryId",
+                table: "Treatments",
+                column: "CategoryId");
         }
 
         /// <inheritdoc />
@@ -117,6 +142,9 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace api.Models
         public int Price { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
-        public required Customer Customer { get; set; } //Navigation Property, Kolla upp det varför det används
+        public required Customer Customer { get; set; }
         public ICollection<Treatment> Treatments { get; set; } = new List<Treatment>();
     };
 };
