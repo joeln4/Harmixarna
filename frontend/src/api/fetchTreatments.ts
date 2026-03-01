@@ -1,6 +1,6 @@
 import { TreatmentInterface } from "../types/treatment.types";
 
-async function FetchTreatments (): Promise<TreatmentInterface[]> {
+async function fetchTreatments (): Promise<TreatmentInterface[]> {
   const res =  await fetch("http://localhost:5296/api/treatment", {
     method: "GET",
   });
@@ -11,4 +11,4 @@ async function FetchTreatments (): Promise<TreatmentInterface[]> {
   return res.json();
 }
 
-export default FetchTreatments;
+export default fetchTreatments;
